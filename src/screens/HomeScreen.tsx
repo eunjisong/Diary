@@ -11,7 +11,7 @@ const moodIcons: { [key: string]: string } = {
   happy: 'smile',
   sad: 'frown',
   angry: 'thumbs-down',
-  neutral: 'meh',
+  neutral: 'thumbs-up',
 };
 
 const HomeScreen = ({ navigation }: any) => {
@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }: any) => {
           sections={groupedDiaries}
           keyExtractor={(item) => item.date}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('일기보기', { date: item.date, text: item.text, mood: item.mood })}>
+            <TouchableOpacity onPress={() => navigation.navigate('일기 보기', { date: item.date, text: item.text, mood: item.mood })}>
               <View style={styles.card}>
                 <View style={styles.rowContainer}>
                   <Text style={styles.dateText}>{item.date}</Text>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
 import { Calendar } from 'react-native-calendars';
@@ -15,6 +15,7 @@ const WriteScreen = ({ navigation }: any) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [isDiaryChanged, setIsDiaryChanged] = useState(false);
   const [isNewEntry, setIsNewEntry] = useState(false);
+  const autoSaveTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // ✅ 스토리지에서 데이터 로드
   const loadDiaryData = () => {
@@ -46,12 +47,31 @@ const WriteScreen = ({ navigation }: any) => {
     loadDiaryData();
   }, [selectedDate]);
 
-  const handleSave = () => {
+  useEffect(() => {
+    if (isDiaryChanged) {
+      if (autoSaveTimeout.current) clearTimeout(autoSaveTimeout.current);
+      autoSaveTimeout.current = setTimeout(() => {
+        handleSave(true);
+      }, 2000);
+    }
+    return () => {
+      if (autoSaveTimeout.current) clearTimeout(autoSaveTimeout.current);
+    };
+  }, [diaryText, mood]);
+  
+
+  const handleSave = (autoSave = false) => {
     if (!diaryText.trim()) return;
 
     const existingDiary = storage.getString(selectedDate);
     const diaryData = JSON.stringify({ text: diaryText, mood });
-
+    if (autoSave) {
+      storage.set(selectedDate, diaryData);
+      setIsSaved(true);
+      setIsDiaryChanged(false);
+      return;
+    }
+    
     if (!existingDiary) {
       storage.set(selectedDate, diaryData);
       setIsSaved(true);
@@ -62,10 +82,11 @@ const WriteScreen = ({ navigation }: any) => {
     }
 
     if (!isNewEntry) {
+      console.log('yos3')
       storage.set(selectedDate, diaryData);
       setIsSaved(true);
       setIsDiaryChanged(false);
-      // navigation.navigate('홈', { refresh: true });
+      navigation.navigate('홈', { refresh: true });
       return;
     }
 
@@ -186,7 +207,7 @@ const WriteScreen = ({ navigation }: any) => {
             styles.saveButton,
             { backgroundColor: !isDiaryChanged ? '#B0BEC5' : '#008CBA' }, // ✅ 변경되었을 때만 활성화
           ]}
-          onPress={handleSave}
+          onPress={()=>handleSave()}
           disabled={!isDiaryChanged} // ✅ 내용이 변경되지 않으면 비활성화
         >
           <Text style={styles.buttonText}>{isSaved ? '저장됨' : '저장'}</Text>

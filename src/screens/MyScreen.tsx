@@ -115,9 +115,8 @@ const MyScreen = () => {
             open={open}
             value={genderValue}
             items={[
-              { label: '여', value: 'female' },
-              { label: '남', value: 'male' },
-              { label: 'X', value: 'other' },
+              { label: '여', value: '여자' },
+              { label: '남', value: '남자' }
             ]}
             setOpen={setOpen}
             setValue={(value) => { setGenderValue(value); setIsChanged(true); }}
@@ -151,7 +150,7 @@ const MyScreen = () => {
               <Text style={styles.buttonText}>로그아웃</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.editButton} onPress={() => setIsEditing(true)}>
-              <Text style={styles.buttonText}>Edit</Text>
+              <Text style={styles.buttonText}>수정</Text>
             </TouchableOpacity>
           </>
         )}

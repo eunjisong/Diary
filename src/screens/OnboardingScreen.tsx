@@ -58,9 +58,8 @@ const OnboardingScreen = ({ navigation }: any) => {
         <Text style={styles.label}>성별</Text>
         <DropDownPicker
           items={[
-            { label: '여', value: 'female' },
-            { label: '남', value: 'male' },
-            { label: 'X', value: 'other' },
+            { label: '여', value: '여자' },
+            { label: '남', value: '남자' }
           ]}
           value={gender}
           setValue={setGender}
