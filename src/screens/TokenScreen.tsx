@@ -7,8 +7,8 @@ const COINGECKO_API =
   'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h';
 
 const storage = new MMKV();
-const UPDATE_INTERVAL = 60 * 1000; // 1분 (60초)
-const RATE_LIMIT_COOLDOWN = 10; // 10초 쿨다운
+const UPDATE_INTERVAL = 60 * 1000; 
+const RATE_LIMIT_COOLDOWN = 10;
 type Coin = {
   id: string;
   name: string;
@@ -24,9 +24,9 @@ const TokenScreen = () => {
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState<number | null>(null);
   const [cooldown, setCooldown] = useState(0);
-  const coinsRef = useRef([]); // 🔄 기존 데이터 유지
+  const coinsRef = useRef([]);
 
-  // ✅ 로컬 데이터에서 불러오기
+  // 로컬 데이터에서 불러오기
   const loadFromStorage = () => {
     const cachedData = storage.getString('cached_coins');
     const lastUpdateTime = storage.getString('last_updated');
@@ -34,16 +34,16 @@ const TokenScreen = () => {
     if (cachedData) {
       const parsedData = JSON.parse(cachedData);
       setCoins(parsedData);
-      coinsRef.current = parsedData; // 🔄 기존 데이터 유지
+      coinsRef.current = parsedData;
     }
     if (lastUpdateTime) {
       setLastUpdated(parseInt(lastUpdateTime, 10));
     }
   };
 
-  // ✅ API에서 최신 가격 가져오기
+  // API에서 최신 가격 가져오기
   const fetchPrices = async () => {
-    if (cooldown > 0) return; // ⏳ 쿨다운 중이면 실행 X
+    if (cooldown > 0) return;
 
     setLoading(true);
     setError('');
@@ -53,26 +53,26 @@ const TokenScreen = () => {
 
       const data = await response.json();
 
-      // 🔄 변경된 데이터가 있으면 업데이트
+      // 변경된 데이터가 있으면 업데이트
       if (JSON.stringify(data) !== JSON.stringify(coinsRef.current)) {
         setCoins(data);
         coinsRef.current = data;
       }
 
-      storage.set('cached_coins', JSON.stringify(data)); // 💾 최신 데이터 저장
-      storage.set('last_updated', Date.now().toString()); // ⏳ 마지막 업데이트 시간 저장
+      storage.set('cached_coins', JSON.stringify(data));
+      storage.set('last_updated', Date.now().toString());
       setLastUpdated(Date.now());
     } catch (err) {
       setError('⚠️ API Rate Limited! 데이터는 최신이 아닐 수 있습니다.');
-      loadFromStorage(); // 💾 Rate Limited 시 로컬 데이터 사용
-      setCoins(coinsRef.current); // ✅ 기존 데이터 유지하여 리스트 사라지지 않도록 함
-      startCooldown(); // ⏳ 10초 쿨다운 시작
+      loadFromStorage();
+      setCoins(coinsRef.current);
+      startCooldown();
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ 10초 쿨다운 시작 (자동 업데이트 방해 방지)
+  // 10초 쿨다운 시작 (자동 업데이트 방해 방지)
   const startCooldown = () => {
     setCooldown(RATE_LIMIT_COOLDOWN);
     const interval = setInterval(() => {
@@ -86,7 +86,7 @@ const TokenScreen = () => {
     }, 1000);
   };
 
-  // ✅ 1분마다 자동 업데이트 실행
+  // 
   useEffect(() => {
     loadFromStorage();
     const now = Date.now();
@@ -151,11 +151,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 10,
     width: '100%',
-    shadowColor: 'rgba(0, 0, 0, 0.1)', // 🔥 기존 #000 대신 투명도가 있는 검은색 적용
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,  // 🔥 기존보다 더 연한 그림자 효과
-    shadowRadius: 4, // 🔥 부드러운 그림자를 위해 값 증가
-    elevation: 3, // 안드로이드에서도 적용되도록 설정
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   coinImage: { width: 50, height: 50, marginRight: 15 },
   coinInfo: { flex: 1 },

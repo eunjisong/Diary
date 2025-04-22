@@ -117,4 +117,11 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "diary.apk"
+    }
+}
+
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

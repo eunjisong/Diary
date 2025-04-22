@@ -24,9 +24,9 @@ const DetailScreen = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
-  const [originalDate, setOriginalDate] = useState(date); // ✅ 기존 날짜 저장
+  const [originalDate, setOriginalDate] = useState(date); // 기존 날짜 저장
 
-  // ✅ 저장된 데이터 불러오기
+  // 저장된 데이터 불러오기
   useEffect(() => {
     const storedDiary = storage.getString(selectedDate);
     if (storedDiary) {
@@ -40,7 +40,7 @@ const DetailScreen = () => {
     }
   }, [selectedDate]);
 
-  // ✅ 수정 완료 후 저장
+  // 수정 완료 후 저장
   const handleSaveEdit = () => {
     if (!editedText.trim()) {
       Alert.alert('경고', '내용을 입력해주세요.');
@@ -49,10 +49,10 @@ const DetailScreen = () => {
 
     const diaryData = JSON.stringify({ text: editedText, mood: selectedMood });
 
-    // ✅ 날짜가 변경된 경우 기존 날짜 데이터 삭제 후 새로운 날짜에 저장
+    // 날짜가 변경된 경우 기존 날짜 데이터 삭제 후 새로운 날짜에 저장
     if (originalDate !== selectedDate) {
-      storage.delete(originalDate); // 기존 데이터 삭제
-      setOriginalDate(selectedDate); // 새로운 날짜 저장
+      storage.delete(originalDate);
+      setOriginalDate(selectedDate);
     }
 
     storage.set(selectedDate, diaryData);
@@ -60,7 +60,7 @@ const DetailScreen = () => {
     setIsChanged(false);
   };
 
-  // ✅ 삭제 기능
+  // 삭제 기능
   const handleDelete = () => {
     Alert.alert('삭제 확인', '정말 이 일기를 삭제하시겠습니까?', [
       { text: '취소', style: 'cancel' },
@@ -94,7 +94,7 @@ const DetailScreen = () => {
               onPress={() => {
                 if (isEditing) {
                   setSelectedMood(moodKey);
-                  setIsChanged(true); // ✅ 무드만 바뀌어도 저장 가능
+                  setIsChanged(true);
                 }
               }}
               disabled={!isEditing}
@@ -151,7 +151,7 @@ const DetailScreen = () => {
               style={[
                 styles.saveButton,
                 styles.buttonSpacing,
-                { backgroundColor: isChanged ? '#008CBA' : '#B0BEC5' }, // ✅ 변경이 없으면 비활성화
+                { backgroundColor: isChanged ? '#008CBA' : '#B0BEC5' }, // 변경이 없으면 비활성화
               ]}
               onPress={handleSaveEdit}
               disabled={!isChanged}
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   textArea: { borderColor: '#ccc', borderWidth: 1, padding: 10, fontSize: 16, height: '100%',   textAlignVertical: 'top'  },
   diaryText: { fontSize: 16, color: '#333', padding: 10 },
   buttonContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
-  buttonSpacing: { marginHorizontal: 5 }, // ✅ 버튼 간격 추가
+  buttonSpacing: { marginHorizontal: 5 },
   editButton: { backgroundColor: '#008CBA', padding: 10, borderRadius: 5, flex: 1, alignItems: 'center' },
   saveButton: { backgroundColor: '#4CAF50', padding: 10, borderRadius: 5, flex: 1, alignItems: 'center' },
   deleteButton: { backgroundColor: 'red', padding: 10, borderRadius: 5, flex: 1, alignItems: 'center' },

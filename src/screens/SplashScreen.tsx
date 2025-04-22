@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/types';
 import Icon from 'react-native-vector-icons/Feather';
 
 const storage = new MMKV();
 
 const SplashScreen = ({ navigation}: any ) => {
-  // type NavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
-  // const navigation = useNavigation<NavigationProp>();
 
   const fadeAnim = new Animated.Value(0);
   const [isLoading, setIsLoading] = useState(true);

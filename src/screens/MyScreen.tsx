@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal, Alert } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,7 +18,6 @@ const MyScreen = () => {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const [genderValue, setGenderValue] = useState<string | null>(null);
   const [isChanged, setIsChanged] = useState(false);

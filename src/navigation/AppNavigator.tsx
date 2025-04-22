@@ -7,7 +7,6 @@ import HomeScreen from '../screens/HomeScreen';
 import WriteScreen from '../screens/WriteScreen';
 import TokenScreen from '../screens/TokenScreen';
 import MyScreen from '../screens/MyScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
 import DetailScreen from '../screens/DetailScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
@@ -16,7 +15,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 
-// ✅ HomeStackNavigator를 별도 컴포넌트로 분리
+// HomeStackNavigator를 별도 컴포넌트로 분리
 const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator >
@@ -26,7 +25,7 @@ const HomeStackNavigator = () => {
   );
 };
 
-// ✅ BottomTabNavigator 수정 (아이콘 추가)
+// BottomTabNavigator
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -57,15 +56,12 @@ const BottomTabNavigator = () => {
   );
 };
 
-
-// ✅ AppNavigator에서 DetailScreen 제거
 const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="Main" component={BottomTabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
