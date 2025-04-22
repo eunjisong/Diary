@@ -1,3 +1,8 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
-}
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "types": ["node","mocha", "@wdio/globals/types", "@wdio/types"],
+
+  },
+  "include": ["tests/**/*.ts", "wdio.conf.ts"]}
+  

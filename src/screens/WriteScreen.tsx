@@ -17,7 +17,7 @@ const WriteScreen = ({ navigation }: any) => {
   const [isNewEntry, setIsNewEntry] = useState(false);
   const autoSaveTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  // ✅ 스토리지에서 데이터 로드
+  // 스토리지에서 데이터 로드
   const loadDiaryData = () => {
     const storedDiary = storage.getString(selectedDate);
     if (storedDiary) {
@@ -30,7 +30,7 @@ const WriteScreen = ({ navigation }: any) => {
         console.error('Error parsing stored diary:', error);
       }
     } else {
-      // ✅ 홈탭에서 삭제되었을 경우, WriteScreen 초기화
+      // 홈탭에서 삭제되었을 경우, WriteScreen 초기화
       setDiaryText('');
       setMood('');
       setIsSaved(false);
@@ -101,7 +101,6 @@ const WriteScreen = ({ navigation }: any) => {
             setIsSaved(true);
             setIsDiaryChanged(false);
             setIsNewEntry(false);
-            // navigation.navigate('홈', { refresh: true });
           },
         },
         {
@@ -115,7 +114,6 @@ const WriteScreen = ({ navigation }: any) => {
               setIsSaved(true);
               setIsDiaryChanged(false);
               setIsNewEntry(false);
-              // navigation.navigate('홈', { refresh: true });
             } catch (error) {
               console.error('Error updating diary:', error);
             }
@@ -126,10 +124,10 @@ const WriteScreen = ({ navigation }: any) => {
     );
   };
 
-  // ✅ Mood 변경 시 Save 버튼 활성화
+  // Mood 변경 시 Save 버튼 활성화
   const handleMoodSelect = (selectedMood: string) => {
     setMood(selectedMood);
-    setIsDiaryChanged(true); // ✅ 아이콘 바뀌면 Save 활성화
+    setIsDiaryChanged(true);
     setIsSaved(false);
   };
 
@@ -208,7 +206,7 @@ const WriteScreen = ({ navigation }: any) => {
             { backgroundColor: !isDiaryChanged ? '#B0BEC5' : '#008CBA' }, // ✅ 변경되었을 때만 활성화
           ]}
           onPress={()=>handleSave()}
-          disabled={!isDiaryChanged} // ✅ 내용이 변경되지 않으면 비활성화
+          disabled={!isDiaryChanged}
         >
           <Text style={styles.buttonText}>{isSaved ? '저장됨' : '저장'}</Text>
         </TouchableOpacity>

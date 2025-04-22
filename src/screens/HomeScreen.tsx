@@ -16,7 +16,7 @@ const moodIcons: { [key: string]: string } = {
 
 const HomeScreen = ({ navigation }: any) => {
   type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Main'>;
-  const route = useRoute<HomeScreenRouteProp>(); // ✅ route 타입 적용
+  const route = useRoute<HomeScreenRouteProp>();
   const preloadedDiaries = route.params?.screen === 'Home' ? route.params?.params?.preloadedDiaries : undefined;
   const [groupedDiaries, setGroupedDiaries] = useState(
     preloadedDiaries ? groupDiaries(preloadedDiaries) : null
@@ -61,8 +61,6 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>📅 월별 일기 목록</Text>
-
-      {/* ✅ Empty State가 절대 보이지 않도록 */}
       {groupedDiaries === null ? null : groupedDiaries.length === 0 ? (
   <View style={styles.emptyContainer}>
     <Text style={styles.emptyText}>일기가 하나도 없습니다.</Text>
@@ -96,7 +94,7 @@ const HomeScreen = ({ navigation }: any) => {
   );
 };
 
-// ✅ 일기 데이터를 월별로 그룹화
+// 일기 데이터를 월별로 그룹화
 const groupDiaries = (diaries: { date: string; text: string; mood: string }[]) => {
   diaries.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -143,11 +141,11 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // 날짜와 아이콘을 같은 row에 위치
+    justifyContent: 'space-between',
     marginBottom: 5,
   },
   dateText: { fontSize: 16, fontWeight: 'bold' },
-  moodIcon: { marginLeft: 10 }, // 아이콘과 날짜 간격 추가
+  moodIcon: { marginLeft: 10 },
   diaryText: { fontSize: 14, color: '#333' },
   emptyContainer: {
     flex: 1,
