@@ -63,13 +63,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7FE4582C2DB35FCA00F8FE0C /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* Diary.app */,
-				7FE4582C2DB35FCA00F8FE0C /* New Group */,
 			);
 			name = Products;
 			sourceTree = "<group>";

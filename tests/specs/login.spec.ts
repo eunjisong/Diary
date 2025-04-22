@@ -1,8 +1,12 @@
-describe('Login flow', () => {
-  it('should log in with valid credentials', async () => {
-    
-    await browser.pause(1000)
-    // await LoginScreen.login('test@example.com', 'password123');
-    // await browser.pause(2000); // 로그인 후 뭔가 확인 가능
-  });
-}); 
+import LoginScreen from "../screens/LoginScreen"
+import { actions } from "../helpers/actions"
+
+describe('로그인', () => {
+  it('로그인 성공', async () => {
+    await actions.isVisible(LoginScreen.title) 
+  })
+
+  it('로그인 실패', async () => {
+    // 테스트를 스스로 해보세요. 
+  })
+})
