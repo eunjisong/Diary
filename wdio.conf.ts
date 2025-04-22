@@ -26,7 +26,7 @@ export const config: WebdriverIO.Config = {
   ],
   logLevel: 'info',
   bail: 0,
-  waitforTimeout: 10000,
+  waitforTimeout: 2000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
   services: ['appium'],
