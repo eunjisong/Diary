@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -36,57 +36,67 @@ const OnboardingScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>일기쓰기</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Text style={styles.title}>일기쓰기</Text>
+          {/* 프로필 사진 */}
+          <View style={styles.profileContainer}>
 
-      {/* 프로필 사진 */}
-      <View style={styles.profileContainer}>
-        <Image source={{ uri: profileImage || DEFAULT_PROFILE_IMAGE }} style={styles.image} />
-        <TouchableOpacity style={styles.imageButton} onPress={handlePickImage}>
-          <Text style={styles.imageButtonText}>사진 선택</Text>
-        </TouchableOpacity>
-      </View>
+            <Image source={{ uri: profileImage || DEFAULT_PROFILE_IMAGE }} style={styles.image} />
+            <TouchableOpacity style={styles.imageButton} onPress={handlePickImage}>
+              <Text style={styles.imageButtonText}>사진 선택</Text>
+            </TouchableOpacity>
+          </View>
 
-      {/* 입력 필드 */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>이름</Text>
-        <TextInput style={styles.input} placeholder="이름 입력" value={name} onChangeText={setName} />
+          {/* 입력 필드 */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>이름</Text>
+            <TextInput style={styles.input} placeholder="이름 입력" value={name} onChangeText={setName} />
 
-        <Text style={styles.label}>나이</Text>
-        <TextInput style={styles.input} placeholder="나이 입력" value={age} onChangeText={setAge} keyboardType="numeric" />
+            <Text style={styles.label}>나이</Text>
+            <TextInput style={styles.input} returnKeyType='done' placeholder="나이 입력" value={age} onChangeText={setAge} keyboardType="numeric" />
 
-        <Text style={styles.label}>성별</Text>
-        <DropDownPicker
-          items={[
-            { label: '여', value: '여자' },
-            { label: '남', value: '남자' }
-          ]}
-          value={gender}
-          setValue={setGender}
-          placeholder="성별 선택"
-          open={open}
-          setOpen={setOpen}
-          containerStyle={styles.dropdown}
-          style={styles.dropdownList}
-          zIndex={1000}
-        />
-      </View>
+            <Text style={styles.label}>성별</Text>
+            <DropDownPicker
+              items={[
+                { label: '여', value: '여자' },
+                { label: '남', value: '남자' }
+              ]}
+              value={gender}
+              setValue={setGender}
+              placeholder="성별 선택"
+              open={open}
+              setOpen={setOpen}
+              containerStyle={styles.dropdown}
+              style={styles.dropdownList}
+              zIndex={1000}
+            />
+          </View>
 
-      {/* 완료 버튼 */}
-      <TouchableOpacity
-        style={[styles.submitButton, !isFormComplete && styles.submitButtonDisabled]}
-        onPress={handleSubmit}
-        disabled={!isFormComplete}
-      >
-        <Text style={styles.submitButtonText}>완료</Text>
-      </TouchableOpacity>
-    </View>
+          {/* 완료 버튼 */}
+          <TouchableOpacity
+            style={[styles.submitButton, !isFormComplete && styles.submitButtonDisabled]}
+            onPress={handleSubmit}
+            disabled={!isFormComplete}
+          >
+            <Text style={styles.submitButtonText}>완료</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, justifyContent: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, marginTop: 100, textAlign: 'center' },
 
   profileContainer: { alignItems: 'center', marginBottom: 20 },
   image: { width: 120, height: 120, borderRadius: 60, marginBottom: 10 },

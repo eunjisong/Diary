@@ -96,14 +96,16 @@ const MyScreen = () => {
       <View style={styles.infoContainer}>
         <Text style={styles.label}>이름:</Text>
         {isEditing ? (
-          <TextInput style={styles.input} value={name} onChangeText={(text) => { setName(text); setIsChanged(true); }} />
+          <TextInput style={styles.input} returnKeyType="done" value={name} onChangeText={(text) => { setName(text); setIsChanged(true); }} />
         ) : (
           <Text style={styles.text}>{name}</Text>
         )}
 
         <Text style={styles.label}>나이:</Text>
         {isEditing ? (
-          <TextInput style={styles.input} value={age} keyboardType="numeric" onChangeText={(text) => { setAge(text); setIsChanged(true); }} />
+          <TextInput style={styles.input} value={age} keyboardType="numeric"      
+          returnKeyType="done"          
+          onChangeText={(text) => { setAge(text); setIsChanged(true); }} />
         ) : (
           <Text style={styles.text}>{age}</Text>
         )}

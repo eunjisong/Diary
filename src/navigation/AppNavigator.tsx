@@ -30,7 +30,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ focused, size }) => {
           let iconName: string;
 
           if (route.name === '홈') iconName = 'home';
@@ -40,18 +40,27 @@ const BottomTabNavigator = () => {
           else iconName = 'help-circle'; // 만약에 추가되면 기본 아이콘 설정
 
           return <Icon name={iconName} size={size} color={focused ? '#008CBA' : 'gray'} />;
-    },
-    tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
-    tabBarActiveTintColor: '#008CBA',
-    tabBarInactiveTintColor: 'gray',
+        },
+        tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
+        tabBarActiveTintColor: '#008CBA',
+        tabBarInactiveTintColor: 'gray',
 
-    tabBarStyle: { backgroundColor: '#fff', height: 60, paddingBottom: 5 },
+        tabBarStyle: { backgroundColor: '#fff', height: 80, paddingTop: 5, paddingBottom: 5 },
       })}
     >
-      <Tab.Screen name="홈" component={HomeStackNavigator} options={{ headerShown: false }} />
-      <Tab.Screen name="쓰기" component={WriteScreen} />
-      <Tab.Screen name="토큰" component={TokenScreen} />
-      <Tab.Screen name="프로필" component={MyScreen} />
+      <Tab.Screen name="홈" component={HomeStackNavigator} options={{
+        tabBarAccessibilityLabel: "홈",
+        headerShown: false
+      }} />
+      <Tab.Screen name="쓰기" component={WriteScreen}
+        options={{ tabBarAccessibilityLabel: "쓰기" }}
+      />
+      <Tab.Screen name="토큰" component={TokenScreen}
+        options={{ tabBarAccessibilityLabel: "토큰" }}
+      />
+      <Tab.Screen name="프로필" component={MyScreen}
+        options={{ tabBarAccessibilityLabel: "프로필" }}
+      />
     </Tab.Navigator>
   );
 };
