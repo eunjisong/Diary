@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
 import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Feather';
@@ -30,7 +30,6 @@ const WriteScreen = ({ navigation }: any) => {
         console.error('Error parsing stored diary:', error);
       }
     } else {
-      // 홈탭에서 삭제되었을 경우, WriteScreen 초기화
       setDiaryText('');
       setMood('');
       setIsSaved(false);
@@ -58,7 +57,7 @@ const WriteScreen = ({ navigation }: any) => {
       if (autoSaveTimeout.current) clearTimeout(autoSaveTimeout.current);
     };
   }, [diaryText, mood]);
-  
+
 
   const handleSave = (autoSave = false) => {
     if (!diaryText.trim()) return;
@@ -71,7 +70,7 @@ const WriteScreen = ({ navigation }: any) => {
       setIsDiaryChanged(false);
       return;
     }
-    
+
     if (!existingDiary) {
       storage.set(selectedDate, diaryData);
       setIsSaved(true);
@@ -124,7 +123,6 @@ const WriteScreen = ({ navigation }: any) => {
     );
   };
 
-  // Mood 변경 시 Save 버튼 활성화
   const handleMoodSelect = (selectedMood: string) => {
     setMood(selectedMood);
     setIsDiaryChanged(true);
@@ -141,77 +139,87 @@ const WriteScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.dateMoodContainer}>
-        <TouchableOpacity style={styles.dateButton} onPress={() => setShowCalendar(!showCalendar)}>
-          <Text style={styles.dateText}>{selectedDate}</Text>
-        </TouchableOpacity>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={{ flex: 1 }}>
 
-        <View style={styles.moodContainer}>
-          <TouchableOpacity onPress={() => handleMoodSelect('happy')}>
-            <Icon name="smile" size={40} color={mood === 'happy' ? 'black' : 'gray'} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleMoodSelect('sad')}>
-            <Icon name="frown" size={40} color={mood === 'sad' ? 'black' : 'gray'} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleMoodSelect('angry')}>
-            <Icon name="thumbs-down" size={40} color={mood === 'angry' ? 'black' : 'gray'} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleMoodSelect('neutral')}>
-            <Icon name="thumbs-up" size={40} color={mood === 'neutral' ? 'black' : 'gray'} />
-          </TouchableOpacity>
+          <View style={styles.dateMoodContainer}>
+            <TouchableOpacity style={styles.dateButton} onPress={() => setShowCalendar(!showCalendar)}>
+              <Text style={styles.dateText}>{selectedDate}</Text>
+            </TouchableOpacity>
+
+            <View style={styles.moodContainer}>
+              <TouchableOpacity onPress={() => handleMoodSelect('happy')}>
+                <Icon name="smile" size={40} color={mood === 'happy' ? 'black' : 'gray'} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleMoodSelect('sad')}>
+                <Icon name="frown" size={40} color={mood === 'sad' ? 'black' : 'gray'} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleMoodSelect('angry')}>
+                <Icon name="thumbs-down" size={40} color={mood === 'angry' ? 'black' : 'gray'} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleMoodSelect('neutral')}>
+                <Icon name="thumbs-up" size={40} color={mood === 'neutral' ? 'black' : 'gray'} />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {showCalendar && (
+            <Calendar
+              current={selectedDate}
+              onDayPress={(day: { dateString: string }) => {
+                setSelectedDate(day.dateString);
+                setShowCalendar(false);
+              }}
+            />
+          )}
+
+          <View style={styles.textAreaContainer}>
+            <TextInput
+              style={styles.textArea}
+              multiline
+              value={diaryText}
+              onChangeText={(text) => {
+                setDiaryText(text);
+                setIsDiaryChanged(true);
+                setIsSaved(false);
+              }}
+              placeholder="오늘의 일기를 작성하세요"
+
+            />
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[
+                styles.newDiaryButton,
+                { backgroundColor: diaryText.trim() ? '#4CAF50' : '#B0BEC5' },
+              ]}
+              onPress={handleNewDiary}
+              disabled={!diaryText.trim()}
+            >
+              <Text style={styles.buttonText}>새 일기</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.saveButton,
+                { backgroundColor: !isDiaryChanged ? '#B0BEC5' : '#008CBA' },
+              ]}
+              onPress={() => handleSave()}
+              disabled={!isDiaryChanged}
+            >
+              <Text style={styles.buttonText}>{isSaved ? '저장됨' : '저장'}</Text>
+            </TouchableOpacity>
+          </View>
+        
         </View>
-      </View>
-
-      {showCalendar && (
-        <Calendar
-          current={selectedDate}
-          onDayPress={(day: { dateString: string }) => {
-            setSelectedDate(day.dateString);
-            setShowCalendar(false);
-          }}
-        />
-      )}
-
-      <View style={styles.textAreaContainer}>
-        <TextInput
-          style={styles.textArea}
-          multiline
-          value={diaryText}
-          onChangeText={(text) => {
-            setDiaryText(text);
-            setIsDiaryChanged(true);
-            setIsSaved(false);
-          }}
-          placeholder="오늘의 일기를 작성하세요"
-          
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[
-            styles.newDiaryButton,
-            { backgroundColor: diaryText.trim() ? '#4CAF50' : '#B0BEC5' },
-          ]}
-          onPress={handleNewDiary}
-          disabled={!diaryText.trim()}
-        >
-          <Text style={styles.buttonText}>새 일기</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[
-            styles.saveButton,
-            { backgroundColor: !isDiaryChanged ? '#B0BEC5' : '#008CBA' }, // ✅ 변경되었을 때만 활성화
-          ]}
-          onPress={()=>handleSave()}
-          disabled={!isDiaryChanged}
-        >
-          <Text style={styles.buttonText}>{isSaved ? '저장됨' : '저장'}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -222,11 +230,12 @@ const styles = StyleSheet.create({
   dateText: { fontSize: 20 },
   moodContainer: { flexDirection: 'row', alignItems: 'center' },
   textAreaContainer: { flex: 1, marginBottom: 20 },
-  textArea: { borderColor: '#ccc', borderWidth: 1, padding: 10, fontSize: 16, height: '100%',   textAlignVertical: 'top'  },
-  buttonContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
+  textArea: { borderColor: '#ccc', borderWidth: 1, padding: 10, fontSize: 16, height: '100%', textAlignVertical: 'top' },
+  buttonContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginBottom: 30 },
   newDiaryButton: { padding: 10, borderRadius: 5, flex: 0.48, alignItems: 'center' },
   saveButton: { padding: 10, borderRadius: 5, flex: 0.48, alignItems: 'center' },
   buttonText: { color: 'white', fontSize: 16 },
+
 });
 
 export default WriteScreen;

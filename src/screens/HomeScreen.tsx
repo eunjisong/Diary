@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }: any) => {
     preloadedDiaries ? groupDiaries(preloadedDiaries) : null
   );
 
-  
+
   useFocusEffect(
     React.useCallback(() => {
       if (groupedDiaries === null) {
@@ -60,18 +60,17 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>📅 월별 일기 목록</Text>
       {groupedDiaries === null ? null : groupedDiaries.length === 0 ? (
-  <View style={styles.emptyContainer}>
-    <Text style={styles.emptyText}>일기가 하나도 없습니다.</Text>
-    <TouchableOpacity
-      style={styles.writeButton}
-      onPress={() => navigation.navigate('쓰기')}
-    >
-      <Text style={styles.buttonText}>✏️ 일기 쓰러 가기</Text>
-    </TouchableOpacity>
-  </View>
-) : (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>일기가 하나도 없습니다.</Text>
+          <TouchableOpacity
+            style={styles.writeButton}
+            onPress={() => navigation.navigate('쓰기')}
+          >
+            <Text style={styles.buttonText}>✏️ 일기 쓰러 가기</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
         <SectionList
           sections={groupedDiaries}
           keyExtractor={(item) => item.date}
