@@ -1,4 +1,13 @@
 import path from 'path'
+import { addTestResult, getOrCreateSection, getOrCreateTestCase, getOrCreateTestRun } from './tests/testrail/testrail.service';
+
+let testRunId: number | undefined;
+let sectionCache: Record<string, number> = {};
+const isBitrise = process.env.CI === 'true'
+const iosAppPath = isBitrise
+  ? '/Users/vagrant/Library/Developer/Xcode/DerivedData/Diary*/Build/Products/Debug-iphonesimulator/Diary.app'
+  : path.resolve('./ios/DerivedData/Build/Products/Debug-iphonesimulator/Diary.app');
+
 
 export const config: WebdriverIO.Config = {
   runner: 'local',
@@ -12,7 +21,7 @@ export const config: WebdriverIO.Config = {
       'appium:deviceName': 'iPhone 16 Pro',
       'appium:platformVersion': '18.2',
       'appium:automationName': 'XCUITest',
-      'appium:app': path.resolve('./ios/DerivedData/Build/Products/Debug-iphonesimulator/Diary.app'), // iOS 앱 경로
+      'appium:app': iosAppPath,
       'appium:noReset': true
     },
     {
@@ -35,5 +44,30 @@ export const config: WebdriverIO.Config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000
+  },
+
+
+  before: async () => {
+    const platform = driver.isAndroid ? 'Android' : 'iOS';
+    testRunId = await getOrCreateTestRun(platform)
+    console.log('[DEBUG BEFORE] testRunId set to:', testRunId);
+  },
+  
+
+  beforeTest: async (test) => {
+    const sectionTitle = test.parent; // 'describe()'의 텍스트!
+    if (!sectionCache[sectionTitle]) {
+      sectionCache[sectionTitle] = await getOrCreateSection(sectionTitle);
+    }
+  },
+
+  afterTest: async (test, _context, { passed, error }) => {
+    const sectionId = sectionCache[test.parent];
+    const caseId = await getOrCreateTestCase(test.title, sectionId);
+    if (testRunId !== undefined) {
+      await addTestResult(testRunId, caseId, passed ? 1 : 5, error?.message);
+    } else {
+      console.error('testRunID is undefined!')
+    }
   }
 }
