@@ -6,7 +6,7 @@ let sectionCache: Record<string, number> = {}
 const platformToRun = process.env.PLATFORM
 const isBitrise = process.env.CI === 'true'
 const iosAppPath = isBitrise
-  ? '/Users/vagrant/deploy/Diary.app'
+  ? "/Users/vagrant/git/build/Build/Products/Debug-iphonesimulator/Diary.app"
   : path.resolve('./ios/DerivedData/Build/Products/Debug-iphonesimulator/Diary.app');
 
 export const config: WebdriverIO.Config = {
