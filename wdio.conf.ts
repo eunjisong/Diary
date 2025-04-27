@@ -27,7 +27,7 @@ export const config: WebdriverIO.Config = {
     },
     {
       platformName: 'Android',
-      'appium:deviceName': 'Pixel 3',
+      'appium:deviceName': 'emulator-5554',
       'appium:platformVersion': '14',
       'appium:automationName': 'UiAutomator2',
       'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
