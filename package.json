@@ -8,6 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "npx wdio run wdio.conf.ts",
+    "test:ios": "PLATFORM=ios npx wdio run wdio.conf.ts",
+    "test:android": "PLATFORM=android npx wdio run wdio.conf.ts",
     "wdio": "wdio run ./wdio.conf.ts",
     "doctor": "npx appium-doctor"
   },
@@ -15,6 +17,7 @@
     "@react-navigation/bottom-tabs": "7.2.0",
     "@react-navigation/native": "7.0.14",
     "@react-navigation/stack": "7.1.1",
+    "axios": "1.9.0",
     "react": "18.3.1",
     "react-native": "0.77.0",
     "react-native-calendars": "1.1309.0",
