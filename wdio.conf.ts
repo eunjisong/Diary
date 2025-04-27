@@ -5,8 +5,8 @@ let testRunId: number | undefined
 let sectionCache: Record<string, number> = {}
 const platformToRun = process.env.PLATFORM
 const isBitrise = process.env.CI === 'true'
-  const iosAppPath = isBitrise
-  ? '/Users/vagrant/deploy/derived_data/Build/Products/Debug-iphonesimulator/Diary.app'
+const iosAppPath = isBitrise
+  ? '/Users/vagrant/deploy/Diary.app'
   : path.resolve('./ios/DerivedData/Build/Products/Debug-iphonesimulator/Diary.app');
 
 export const config: WebdriverIO.Config = {
@@ -30,7 +30,7 @@ export const config: WebdriverIO.Config = {
       'appium:platformVersion': '14',
       'appium:automationName': 'UiAutomator2',
       'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-    'appium:noReset': true
+      'appium:noReset': true
     }
   ].filter(cap => {
     if (!platformToRun) return true; // 아무것도 지정 안 했으면 둘 다
@@ -55,7 +55,7 @@ export const config: WebdriverIO.Config = {
     testRunId = await getOrCreateTestRun(platform)
     console.log('[DEBUG BEFORE] testRunId set to:', testRunId);
   },
-  
+
 
   beforeTest: async (test) => {
     const sectionTitle = test.parent; // 'describe()'의 텍스트!
