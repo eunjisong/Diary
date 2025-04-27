@@ -27,7 +27,7 @@ export const config: WebdriverIO.Config = {
     },
     {
       platformName: 'Android',
-      'appium:deviceName': 'Pixel 5',
+      'appium:deviceName': 'Pixel 4',
       'appium:platformVersion': '14',
       'appium:automationName': 'UiAutomator2',
       'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
