@@ -5,10 +5,9 @@ let testRunId: number | undefined
 let sectionCache: Record<string, number> = {}
 const platformToRun = process.env.PLATFORM
 const isBitrise = process.env.CI === 'true'
-const iosAppPath = isBitrise
-  ? '/Users/vagrant/Library/Developer/Xcode/DerivedData/Diary*/Build/Products/Debug-iphonesimulator/Diary.app'
+  const iosAppPath = isBitrise
+  ? '/Users/vagrant/deploy/derived_data/Build/Products/Debug-iphonesimulator/Diary.app'
   : path.resolve('./ios/DerivedData/Build/Products/Debug-iphonesimulator/Diary.app');
-
 
 export const config: WebdriverIO.Config = {
   runner: 'local',
@@ -19,7 +18,7 @@ export const config: WebdriverIO.Config = {
   capabilities: [
     {
       platformName: 'iOS',
-      'appium:deviceName': 'iPhone 16 Pro',
+      'appium:deviceName': 'iPhone 16',
       'appium:platformVersion': '18.2',
       'appium:automationName': 'XCUITest',
       'appium:app': iosAppPath,
@@ -27,7 +26,7 @@ export const config: WebdriverIO.Config = {
     },
     {
       platformName: 'Android',
-      'appium:deviceName': 'emulator-5554',
+      'appium:deviceName': 'pixel_3',
       'appium:platformVersion': '14',
       'appium:automationName': 'UiAutomator2',
       'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
