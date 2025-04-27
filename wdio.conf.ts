@@ -1,8 +1,9 @@
 import path from 'path'
 import { addTestResult, getOrCreateSection, getOrCreateTestCase, getOrCreateTestRun } from './tests/testrail/testrail.service';
 
-let testRunId: number | undefined;
-let sectionCache: Record<string, number> = {};
+let testRunId: number | undefined
+let sectionCache: Record<string, number> = {}
+const platformToRun = process.env.PLATFORM
 const isBitrise = process.env.CI === 'true'
 const iosAppPath = isBitrise
   ? '/Users/vagrant/Library/Developer/Xcode/DerivedData/Diary*/Build/Products/Debug-iphonesimulator/Diary.app'
@@ -32,7 +33,10 @@ export const config: WebdriverIO.Config = {
       'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
     'appium:noReset': true
     }
-  ],
+  ].filter(cap => {
+    if (!platformToRun) return true; // 아무것도 지정 안 했으면 둘 다
+    return cap.platformName.toLowerCase() === platformToRun.toLowerCase();
+  }),
   logLevel: 'info',
   bail: 0,
   waitforTimeout: 2000,
