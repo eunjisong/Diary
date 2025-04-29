@@ -1,5 +1,5 @@
 {
-  "name": "Diary",
+  "name": "diary",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,11 +7,13 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
+    "testSolutions": "npx wdio run ./test_solutions/wdio.conf.ts",
     "test": "npx wdio run wdio.conf.ts",
     "test:ios": "PLATFORM=ios npx wdio run wdio.conf.ts",
     "test:android": "PLATFORM=android npx wdio run wdio.conf.ts",
     "wdio": "wdio run ./wdio.conf.ts",
-    "doctor": "npx appium-doctor"
+    "doctor": "npx appium-doctor",
+    "podInstall": "cd ios && pod install"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "7.2.0",

@@ -3,7 +3,9 @@ import { actions } from "../helpers/actions"
 
 describe('로그인', () => {
   it('로그인 성공', async () => {
-    await actions.isVisible(LoginScreen.title)
+    await LoginScreen.verifyLoginScreen()
+    await LoginScreen.selectPhoto()
+    await 
   })
 
   it('로그인 실패', async () => {
