@@ -1,3 +1,15 @@
 export default {
-    title: '일기쓰기'
+    title: '일기 어플',
+    image: 'image',
+    imageBtn: '사진 선택',
+    nameTitle: '이름',
+    nameInput: 'name_input',
+    ageTitle: '나이',
+    ageInput: 'age_input',
+    genderTitle: '성별',
+    female: '여자',
+    male: '남자',
+    name: '오토봇',
+    age: 30,
+    save: '저장',
   }

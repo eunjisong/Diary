@@ -1,0 +1,7 @@
+export default {
+    homeTab: 'homeTab',
+    writeTab: 'writeTab',
+    tokenTab: 'tokenTab',
+    profileTab: 'profileTab',
+    confirmBtn: '확인'
+  }

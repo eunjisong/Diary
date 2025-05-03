@@ -1,3 +1,3 @@
 export default {
-    title: '일기쓰기'
+    title: '일기 어플'
   }

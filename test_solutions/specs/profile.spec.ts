@@ -3,18 +3,18 @@ import { actions } from "../helpers/actions"
 import { assert } from 'chai'
 import ProfileScreen from "../screens/ProfileScreen"
 import HomeScreen from "../screens/HomeScreen"
-import loginLoc from "../locators/login.loc"
+import { warmup } from "../helpers/warmup"
 
-describe('로그인', () => {
-  before(() => {
-    LoginScreen.addPhotoToVirtualDevice()
+describe('프로필', () => {
+  before(async () => {
+    await warmup()
   })
 
   afterEach(async () => {
     await ProfileScreen.logout()
   })
 
-  it('로그인 성공', async () => {
+  it('프로필 스크린 확인', async () => {
     // 1. 로그인 스크린 전체 요소 테스트 
     await LoginScreen.verifyLoginScreen()
 
@@ -25,10 +25,10 @@ describe('로그인', () => {
     assert.equal(previousImage, newImage, `${previousImage} != ${newImage}`)
 
     // 3. 이름, 나이, 성별 넣기 
-    await actions.setText(LoginScreen.nameInput, loginLoc.name)
-    await actions.setText(LoginScreen.ageInput, loginLoc.age)
-    await actions.dismissKeyboard()
-    await LoginScreen.selectGender(loginLoc.female)
+    await actions.setText(LoginScreen.nameInput, '오토봇')
+    await actions.setText(LoginScreen.ageInput, 30)
+    await actions.dismissKeyboard('Done')
+    await LoginScreen.selectGender('여자')
 
     // 4. 완료하기 
     await actions.tap(LoginScreen.save)
@@ -38,14 +38,7 @@ describe('로그인', () => {
     await actions.isVisible(HomeScreen.title)
   })
 
-  it('로그인 성공 - 리팩토링 버전', async () => {
-    // 1. 사진 선택 기능 테스팅 
-    await LoginScreen.verifyPhotoChanged()
-
-    // 2. 이름, 나이, 성별 넣기 
-    await LoginScreen.fillOutAndSaveProfile(loginLoc.name, loginLoc.age, loginLoc.female)
+  it('프로필 수정', async () => {
     
-    // 4. 다음스크린으로 넘어갔는지 확인 
-    await LoginScreen.verifyLoginSuccess()
   })
 })
