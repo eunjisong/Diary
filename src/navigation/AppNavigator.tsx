@@ -50,16 +50,25 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name="홈" component={HomeStackNavigator} options={{
         tabBarAccessibilityLabel: "홈",
-        headerShown: false
+        headerShown: false,
+        tabBarButtonTestID: 'homeTab'
       }} />
       <Tab.Screen name="쓰기" component={WriteScreen}
-        options={{ tabBarAccessibilityLabel: "쓰기" }}
+        options={{ 
+          tabBarAccessibilityLabel: "쓰기",
+          tabBarButtonTestID: 'writeTab'
+       }}
       />
       <Tab.Screen name="토큰" component={TokenScreen}
-        options={{ tabBarAccessibilityLabel: "토큰" }}
+        options={{ tabBarAccessibilityLabel: "토큰",
+        tabBarButtonTestID: 'tokenTab'
+      }}
       />
       <Tab.Screen name="프로필" component={MyScreen}
-        options={{ tabBarAccessibilityLabel: "프로필" }}
+        options={{ 
+          tabBarAccessibilityLabel: "프로필",
+          tabBarButtonTestID: 'profileTab' 
+        }}
       />
     </Tab.Navigator>
   );

@@ -110,24 +110,37 @@ const MyScreen = () => {
           <Text style={styles.text}>{age}</Text>
         )}
 
-        <Text style={styles.label}>성별:</Text>
-        {isEditing ? (
-          <DropDownPicker
-            open={open}
-            value={genderValue}
-            items={[
-              { label: '여', value: '여자' },
-              { label: '남', value: '남자' }
-            ]}
-            setOpen={setOpen}
-            setValue={(value) => { setGenderValue(value); setIsChanged(true); }}
-            placeholder="성별 선택"
-            containerStyle={styles.dropdown}
-            style={styles.dropdownList}
-          />
-        ) : (
-          <Text style={styles.text}>{gender}</Text>
-        )}
+<Text style={styles.label}>성별:</Text>
+{isEditing ? (
+  <View style={styles.radioContainer}>
+    {['여자', '남자'].map((item) => {
+      const isSelected = genderValue === item;
+      return (
+        <TouchableOpacity
+          key={item}
+          style={[
+            styles.radioButton,
+            {
+              backgroundColor: isSelected ? '#008CBA' : '#fff',
+              borderColor: isSelected ? '#008CBA' : '#ccc'
+            }
+          ]}
+          onPress={() => {
+            setGenderValue(item);
+            setIsChanged(true);
+          }}
+        >
+          <Text style={[styles.radioText, { color: isSelected ? '#fff' : '#000' }]}>
+            {item}
+          </Text>
+        </TouchableOpacity>
+      );
+    })}
+  </View>
+) : (
+  <Text style={styles.text}>{gender}</Text>
+)}
+
       </View>
 
       {/* 버튼 (하단 정렬) */}
@@ -178,15 +191,24 @@ const styles = StyleSheet.create({
   saveButton: { flex: 1, padding: 12, borderRadius: 5, alignItems: 'center' },
   cancelButton: { flex: 1, backgroundColor: 'green', padding: 12, borderRadius: 5, alignItems: 'center' },
   buttonText: { color: 'white', fontSize: 16 },
-  dropdown: {
-    height: 40,
-    marginBottom: 10,
+  
+  radioContainer: {
+    flexDirection: 'row',
+    marginTop: 8,
+    marginBottom: 12
+  },
+  radioButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#ddd',
+    marginRight: 12
   },
-  dropdownList: {
-    backgroundColor: 'white',
-  },
+  radioText: {
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
 });
 
 export default MyScreen;
