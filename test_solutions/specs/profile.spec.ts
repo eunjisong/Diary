@@ -1,44 +1,40 @@
-import LoginScreen from "../screens/LoginScreen"
 import { actions } from "../helpers/actions"
-import { assert } from 'chai'
 import ProfileScreen from "../screens/ProfileScreen"
-import HomeScreen from "../screens/HomeScreen"
 import { warmup } from "../helpers/warmup"
+import Common from "../screens/Common"
+import loginLoc from "../locators/login.loc"
+import profileLoc from "../locators/profile.loc"
 
-describe('프로필', () => {
+describe('프로필 탭', () => {
   before(async () => {
     await warmup()
   })
 
-  afterEach(async () => {
-    await ProfileScreen.logout()
-  })
-
   it('프로필 스크린 확인', async () => {
-    // 1. 로그인 스크린 전체 요소 테스트 
-    await LoginScreen.verifyLoginScreen()
+    await Common.goToProfileTab()
 
-    // 2. 사진 선택 기능 테스팅 
-    const previousImage = await actions.getText(LoginScreen.image)
-    await LoginScreen.selectPhoto()
-    const newImage = await actions.getText(LoginScreen.image)
-    assert.equal(previousImage, newImage, `${previousImage} != ${newImage}`)
-
-    // 3. 이름, 나이, 성별 넣기 
-    await actions.setText(LoginScreen.nameInput, '오토봇')
-    await actions.setText(LoginScreen.ageInput, 30)
-    await actions.dismissKeyboard('Done')
-    await LoginScreen.selectGender('여자')
-
-    // 4. 완료하기 
-    await actions.tap(LoginScreen.save)
-
-    // 5. 다음스크린으로 넘어갔는지 확인 
-    await actions.isNotVisible(LoginScreen.title)
-    await actions.isVisible(HomeScreen.title)
+    await actions.isVisible(ProfileScreen.image)
+    await actions.isVisible(ProfileScreen.logoutBtn)
+    await actions.isVisible(ProfileScreen.editBtn)
+    await actions.verifyElementText(ProfileScreen.nameVal, loginLoc.nameVal)
+    await actions.verifyElementText(ProfileScreen.ageVal, loginLoc.ageVal.toString())
+    await actions.verifyElementText(ProfileScreen.genderVal, loginLoc.female)
   })
 
   it('프로필 수정', async () => {
-    
+    await ProfileScreen.verifyProfileScreen(loginLoc.nameVal, loginLoc.ageVal, loginLoc.female)
+    await actions.tap(ProfileScreen.editBtn)
+    await ProfileScreen.verifyProfileEditScreen(loginLoc.female)
+    await ProfileScreen.editProfile()
+    await ProfileScreen.verifyProfileScreen(profileLoc.newNameVal, profileLoc.newAgeVal, loginLoc.male)
+  })  
+
+  it('프로필에서 로그아웃 하기', async () => {
+    await actions.tap(ProfileScreen.logoutBtn)
+    await ProfileScreen.verifyLogoutAlert()
+    await actions.tap(Common.cancelBtn)
+    await ProfileScreen.verifyProfileScreen(profileLoc.newNameVal, profileLoc.newAgeVal, loginLoc.male)
+    await ProfileScreen.tapLogout()
+    await Common.tapConfirm()
   })
 })

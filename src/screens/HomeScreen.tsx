@@ -67,11 +67,12 @@ const HomeScreen = ({ navigation }: any) => {
             style={styles.writeButton}
             onPress={() => navigation.navigate('쓰기')}
           >
-            <Text style={styles.buttonText}>✏️ 일기 쓰러 가기</Text>
+            <Text style={styles.buttonText}>일기 쓰러 가기</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <SectionList
+          testID='diaryList'
           sections={groupedDiaries}
           keyExtractor={(item) => item.date}
           renderItem={({ item }) => (

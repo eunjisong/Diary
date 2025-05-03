@@ -3,5 +3,7 @@ export default {
     writeTab: 'writeTab',
     tokenTab: 'tokenTab',
     profileTab: 'profileTab',
-    confirmBtn: '확인'
+    confirmBtn: '확인',
+    cancelBtn: '취소',
+    save: '저장',
   }

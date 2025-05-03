@@ -5,6 +5,7 @@ import loginLoc from "../locators/login.loc";
 import HomeScreen from "./HomeScreen";
 import path from 'path'
 import { execSync } from 'child_process';
+import Common from "./Common";
 
 class LoginScreen {
     get title() {
@@ -47,10 +48,6 @@ class LoginScreen {
         return selectors.byText(loginLoc.male)
     }
 
-    get save() {
-        return selectors.byText(loginLoc.save)
-    }
-
     async verifyLoginScreen() {
         await actions.isVisible(this.title)
         await actions.isVisible(this.image)
@@ -59,15 +56,15 @@ class LoginScreen {
         await actions.isVisible(this.nameInput)
         await actions.isVisible(this.ageTitle)
         await actions.isVisible(this.ageInput)
-        await actions.isVisible(this.save)
+        await actions.isVisible(Common.save)
         await actions.isVisible(this.genderTitle)
         await actions.isVisible(this.female)
         await actions.isVisible(this.male)
     }
 
-    async selectPhoto() {
+    async selectPhoto(index = 1) {
         await actions.tap(this.imageBtn)
-        await actions.tap(selectors.byImageAtIndex(1))
+        await actions.tap(selectors.byImageAtIndex(index))
     }
 
     async selectGender(gender: string) {
@@ -81,7 +78,7 @@ class LoginScreen {
         assert.equal(previousImage, newImage, `${previousImage} != ${newImage}`)
     }
 
-    async fillOutAndSaveProfile(name: string, age: number, gender: string) {
+    async fillOutAndSaveProfile(name: string, age: string, gender: string) {
         // 이름, 나이, 성별 넣기 
         await actions.setText(this.nameInput, name)
         await actions.setText(this.ageInput, age)
@@ -89,7 +86,7 @@ class LoginScreen {
         await this.selectGender(gender)
 
         // 완료하기 
-        await actions.tap(this.save)
+        await Common.tapSave()
     }
 
     async verifyLoginSuccess() {
@@ -97,10 +94,10 @@ class LoginScreen {
         await actions.isVisible(HomeScreen.title)
     }
 
-    addPhotoToVirtualDevice() {
+    addPhotoToAndroid() {
         const localImagePath = path.resolve(__dirname, '../example.png');
         if (driver.isAndroid) {
-            const deviceImagePath = '/sdcard/DCIM/Camera/example.png';
+            const deviceImagePath = '/sdcard/DCIM/Camera/exampleDark.png';
 
             console.log('image push 중...');
             execSync(`adb push "${localImagePath}" "${deviceImagePath}"`);
@@ -109,8 +106,6 @@ class LoginScreen {
             console.log('미디어 스캔 트리거...');
             execSync(`adb shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file://${deviceImagePath}`);
             console.log('갤러리에 반영 완료!');
-        } else {
-            execSync(`xcrun simctl addmedia booted "${localImagePath}"`);
         }
     }
 }

@@ -9,7 +9,6 @@ export default {
     genderTitle: '성별',
     female: '여자',
     male: '남자',
-    name: '오토봇',
-    age: 30,
-    save: '저장',
+    nameVal: '오토봇',
+    ageVal: '3'
   }

@@ -7,7 +7,7 @@ import loginLoc from "../locators/login.loc"
 
 describe('로그인', () => {
   before(() => {
-    LoginScreen.addPhotoToVirtualDevice()
+    LoginScreen.addPhotoToAndroid()
   })
 
   afterEach(async () => {
@@ -25,8 +25,8 @@ describe('로그인', () => {
     assert.equal(previousImage, newImage, `${previousImage} != ${newImage}`)
 
     // 3. 이름, 나이, 성별 넣기 
-    await actions.setText(LoginScreen.nameInput, loginLoc.name)
-    await actions.setText(LoginScreen.ageInput, loginLoc.age)
+    await actions.setText(LoginScreen.nameInput, loginLoc.nameVal)
+    await actions.setText(LoginScreen.ageInput, loginLoc.ageVal)
     await actions.dismissKeyboard()
     await LoginScreen.selectGender(loginLoc.female)
 
@@ -43,7 +43,7 @@ describe('로그인', () => {
     await LoginScreen.verifyPhotoChanged()
 
     // 2. 이름, 나이, 성별 넣기 
-    await LoginScreen.fillOutAndSaveProfile(loginLoc.name, loginLoc.age, loginLoc.female)
+    await LoginScreen.fillOutAndSaveProfile(loginLoc.nameVal, loginLoc.ageVal, loginLoc.female)
     
     // 4. 다음스크린으로 넘어갔는지 확인 
     await LoginScreen.verifyLoginSuccess()

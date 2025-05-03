@@ -1,5 +1,6 @@
 import { ChainablePromiseElement } from "webdriverio"
 import { selectors } from "./selectors"
+import { assert } from "chai"
 
 // 탭 함수 
 async function tap(element: ChainablePromiseElement) {
@@ -36,6 +37,11 @@ async function waitFor(element: ChainablePromiseElement, timeout = 5000) {
   await element.waitForDisplayed({timeout})
 }
 
+async function verifyElementText(element: ChainablePromiseElement, text: string) {
+  const eleText = await getText(element)
+  assert.equal(eleText, text, `${eleText} != ${text}`)
+}
+
 export const actions = {
     tap,
     isVisible,
@@ -43,5 +49,6 @@ export const actions = {
     getText,
     setText,
     dismissKeyboard,
-    waitFor
+    waitFor,
+    verifyElementText
 }
