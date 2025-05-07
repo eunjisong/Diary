@@ -21,16 +21,14 @@ export const config: WebdriverIO.Config = {
       'appium:deviceName': 'iPhone 16',
       'appium:platformVersion': '18.2',
       'appium:automationName': 'XCUITest',
-      'appium:app': iosAppPath,
-      'appium:noReset': true
+      'appium:app': iosAppPath
     },
     {
       platformName: 'Android',
-      'appium:deviceName': 'pixel_3',
+      'appium:deviceName': 'emulator-5554',
       'appium:platformVersion': '14',
       'appium:automationName': 'UiAutomator2',
-      'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-      'appium:noReset': true
+      'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk')
     }
   ].filter(cap => {
     if (!platformToRun) return true; // 아무것도 지정 안 했으면 둘 다
@@ -38,7 +36,7 @@ export const config: WebdriverIO.Config = {
   }),
   logLevel: 'info',
   bail: 0,
-  waitforTimeout: 2000,
+  waitforTimeout: 5000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
   services: ['appium'],

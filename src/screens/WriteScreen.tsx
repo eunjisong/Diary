@@ -180,6 +180,7 @@ const WriteScreen = ({ navigation }: any) => {
 
           <View style={styles.textAreaContainer}>
             <TextInput
+              testID='writeInputField'
               style={styles.textArea}
               multiline
               value={diaryText}
