@@ -21,8 +21,17 @@ async function getText(element: ChainablePromiseElement) {
   return await element.getText()
 }
 
-async function setText(element: ChainablePromiseElement, text: string | number) {
-  await element.setValue(text)
+async function type(element: ChainablePromiseElement, text: string | number) {
+  await element.addValue(text)
+}
+
+async function typeSlowly(element: ChainablePromiseElement, text: string | number) {
+  const val = String(text)
+
+  for (const char of val) {
+    await element.addValue(char);
+    await driver.pause(150);
+  }
 }
 
 async function dismissKeyboard(text: string = 'Done') {
@@ -42,13 +51,38 @@ async function verifyElementText(element: ChainablePromiseElement, text: string)
   assert.equal(eleText, text, `${eleText} != ${text}`)
 }
 
+function today(): string {
+  return new Date().toISOString().split('T')[0]; // "2025-05-03"
+}
+
+function yesterday(): string {
+  const date = new Date();
+  date.setDate(date.getDate() - 1); // 하루 빼기
+  return date.toISOString().split('T')[0];
+}
+
+function lastMonth(): string {
+  const date = new Date();
+  date.setMonth(date.getMonth() - 1);
+  return date.toISOString().split('T')[0];
+}
+
+async function swipe(direction: string, percent: number) {
+  await driver.execute('mobile: swipe', { direction, percent})
+}
+
 export const actions = {
     tap,
     isVisible,
     isNotVisible,
     getText,
-    setText,
+    type,
+    typeSlowly,
     dismissKeyboard,
     waitFor,
-    verifyElementText
+    verifyElementText,
+    today,
+    yesterday,
+    lastMonth,
+    swipe
 }

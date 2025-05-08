@@ -7,6 +7,13 @@ function byText(text: string) {
   return withPlatform(`//*[@name="${text}"]`, `//*[@text="${text}"]`);
 }
 
+function byContainsText(text: string) {
+  return withPlatform(
+    `//*[contains(@name, "${text}")]`, 
+    `//*[contains(@text, "${text}")]`
+  );
+}
+
 function byId(testID: string) {
   return withPlatform(`~${testID}`, `//*[@resource-id="${testID}"]`);
 }
@@ -20,6 +27,7 @@ function byImageAtIndex(index: number) {
 
 export const selectors = {
   byText,
+  byContainsText,
   byId,
   byImageAtIndex, 
   withPlatform

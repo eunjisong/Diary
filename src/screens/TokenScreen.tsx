@@ -119,7 +119,7 @@ const TokenScreen = () => {
                   <Text style={styles.coinName}>
                     {item.name} ({item.symbol.toUpperCase()})
                   </Text>
-                  <Text style={styles.coinPrice}>💰 ${item.current_price.toLocaleString()}</Text>
+                  <Text testID='coinPrice' style={styles.coinPrice}>${item.current_price.toLocaleString()}</Text>
                   <View style={styles.priceChangeContainer}>
                     <Icon name={isPriceUp ? 'arrow-up-right' : 'arrow-down-right'} size={16} color={isPriceUp ? 'green' : 'red'} />
                     <Text style={[styles.priceChange, { color: isPriceUp ? 'green' : 'red' }]}>

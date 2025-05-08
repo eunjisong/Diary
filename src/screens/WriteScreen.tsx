@@ -144,7 +144,7 @@ const WriteScreen = ({ navigation }: any) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={{ flex: 1 }}>
 
           <View style={styles.dateMoodContainer}>
@@ -154,16 +154,16 @@ const WriteScreen = ({ navigation }: any) => {
 
             <View style={styles.moodContainer}>
               <TouchableOpacity onPress={() => handleMoodSelect('happy')}>
-                <Icon name="smile" size={40} color={mood === 'happy' ? 'black' : 'gray'} />
+                <Icon testID={mood === 'happy' ? 'selected_happyMood' : 'happyMood'} name="smile" size={40} color={mood === 'happy' ? 'black' : 'gray'} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleMoodSelect('sad')}>
-                <Icon name="frown" size={40} color={mood === 'sad' ? 'black' : 'gray'} />
+                <Icon testID={mood === 'sad' ? 'selected_sadMood' : 'sadMood'} name="frown" size={40} color={mood === 'sad' ? 'black' : 'gray'} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleMoodSelect('angry')}>
-                <Icon name="thumbs-down" size={40} color={mood === 'angry' ? 'black' : 'gray'} />
+              <TouchableOpacity onPress={() => handleMoodSelect('bad')}>
+                <Icon testID={mood === 'bad' ? 'selected_badMood' : 'badMood'} name="thumbs-down" size={40} color={mood === 'bad' ? 'black' : 'gray'} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleMoodSelect('neutral')}>
-                <Icon name="thumbs-up" size={40} color={mood === 'neutral' ? 'black' : 'gray'} />
+              <TouchableOpacity onPress={() => handleMoodSelect('good')}>
+                <Icon testID={mood === 'good' ? 'selected_badMood' : 'goodMood'} name="thumbs-up" size={40} color={mood === 'good' ? 'black' : 'gray'} />
               </TouchableOpacity>
             </View>
           </View>
@@ -217,7 +217,7 @@ const WriteScreen = ({ navigation }: any) => {
               <Text style={styles.buttonText}>{isSaved ? '저장됨' : '저장'}</Text>
             </TouchableOpacity>
           </View>
-        
+
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

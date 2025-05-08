@@ -1,12 +1,25 @@
-import LoginScreen from "../screens/LoginScreen"
-import { actions } from "../helpers/actions"
+// import LoginScreen from "../screens/LoginScreen"
+// import { actions } from "../helpers/actions"
+// import Common from "../screens/Common"
+// import { warmup } from "../helpers/warmup"
+// import TokenScreen from "../screens/TokenScreen"
 
-describe('토큰 탭', () => {
-  it('로그인 성공', async () => {
-    await actions.isVisible(LoginScreen.title)
-  })
+// let allTokens: any
 
-  it('로그인 실패', async () => {
-    // 테스트를 스스로 해보세요. 
-  })
-})
+
+// describe('토큰 탭', () => {
+//   before(async () => {
+//     allTokens = await TokenScreen.getTopTenTokens()
+//     await warmup()
+//   })
+
+//   it('넘버원 토큰 데이터 테스트 ', async () => {
+//     await Common.goToTokenTab()
+//     const top = allTokens[0]
+//     await TokenScreen.verifyTokenRow(top)
+//   })
+
+//   it('탑텐 토큰 리스트 테스트', async () => {
+//     await TokenScreen.verifyTokens(allTokens)
+//   })
+// })

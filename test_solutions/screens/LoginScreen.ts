@@ -80,8 +80,8 @@ class LoginScreen {
 
     async fillOutAndSaveProfile(name: string, age: string, gender: string) {
         // 이름, 나이, 성별 넣기 
-        await actions.setText(this.nameInput, name)
-        await actions.setText(this.ageInput, age)
+        await actions.typeSlowly(this.nameInput, name)
+        await actions.typeSlowly(this.ageInput, age)
         await actions.dismissKeyboard('Done')
         await this.selectGender(gender)
 

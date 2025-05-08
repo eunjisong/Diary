@@ -6,8 +6,8 @@ export type RootStackParamList = {
   Onboarding: undefined;
   My: undefined;
   EditProfile: undefined;
-  Detail: { date: string; text: string; mood: string; }; // DetailScreen을 위한 타입 추가
-  Main: { screen: keyof BottomTabParamList; params?: { preloadedDiaries?: any } }; // preloadedDiaries 추가
+  Detail: { date: string; text: string; mood: string; }
+  Main: { screen: keyof BottomTabParamList; params?: { preloadedDiaries?: any } }
 };
 
 // 바텀 탭 네비게이션 타입

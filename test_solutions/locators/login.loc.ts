@@ -10,5 +10,5 @@ export default {
     female: '여자',
     male: '남자',
     nameVal: '오토봇',
-    ageVal: '3'
+    ageVal: '30'
   }

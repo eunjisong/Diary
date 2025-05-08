@@ -9,8 +9,8 @@ const storage = new MMKV();
 const moodIcons: { [key: string]: string } = {
   happy: 'smile',
   sad: 'frown',
-  angry: 'thumbs-down',
-  neutral: 'thumbs-up',
+  bad: 'thumbs-down',
+  good: 'thumbs-up',
 };
 
 const DetailScreen = () => {
@@ -65,7 +65,7 @@ const DetailScreen = () => {
     Alert.alert('삭제 확인', '정말 이 일기를 삭제하시겠습니까?', [
       { text: '취소', style: 'cancel' },
       {
-        text: '삭제',
+        text: '확인',
         style: 'destructive',
         onPress: () => {
           storage.delete(selectedDate);
@@ -127,6 +127,7 @@ const DetailScreen = () => {
       <View style={styles.textAreaContainer}>
         {isEditing ? (
           <TextInput
+            testID='writeInputField'
             style={styles.textArea}
             multiline
             value={editedText}

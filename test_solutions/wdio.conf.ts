@@ -34,7 +34,7 @@ export const config: WebdriverIO.Config = {
     if (!platformToRun) return true; // 아무것도 지정 안 했으면 둘 다
     return cap.platformName.toLowerCase() === platformToRun.toLowerCase();
   }),
-  logLevel: 'info',
+  logLevel: 'error',
   bail: 0,
   waitforTimeout: 5000,
   connectionRetryTimeout: 120000,

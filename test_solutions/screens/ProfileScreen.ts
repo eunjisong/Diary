@@ -1,50 +1,43 @@
 import { actions } from "../helpers/actions";
 import { selectors } from "../helpers/selectors"
-import commonLoc from "../locators/common.loc";
-import homeLoc from "../locators/home.loc";
-import loginLoc from "../locators/login.loc";
 import profileLoc from "../locators/profile.loc";
 import Common from "./Common";
 import LoginScreen from "./LoginScreen";
 
 class ProfileScreen {
-    get image () {
+    get image() {
         return selectors.byId(profileLoc.image)
     }
 
-    get nameVal () {
+    get nameVal() {
         return selectors.byId(profileLoc.nameVal)
     }
 
-    get ageVal () {
+    get ageVal() {
         return selectors.byId(profileLoc.ageVal)
     }
 
-    get genderVal () {
+    get genderVal() {
         return selectors.byId(profileLoc.genderVal)
     }
 
-    get logoutBtn () {
+    get logoutBtn() {
         return selectors.byText(profileLoc.logout)
     }
 
-    get editBtn () {
-        return selectors.byText(profileLoc.edit)
-    }
-
-    get nameEditInputField () {
+    get nameEditInputField() {
         return selectors.byId(profileLoc.nameEditInputField)
     }
 
-    get ageEditInputField () {
+    get ageEditInputField() {
         return selectors.byId(profileLoc.ageEditInputField)
     }
 
-    get unselectedGender () {
+    get unselectedGender() {
         return selectors.byId(profileLoc.unselectedGender)
     }
 
-    get selectedGender () {
+    get selectedGender() {
         return selectors.byId(profileLoc.selectedGender)
     }
 
@@ -69,7 +62,7 @@ class ProfileScreen {
     async verifyProfileScreen(name: string, age: string, gender: string) {
         await actions.isVisible(this.image)
         await actions.isVisible(this.logoutBtn)
-        await actions.isVisible(this.editBtn)
+        await actions.isVisible(Common.editBtn)
         await actions.verifyElementText(this.nameVal, name)
         await actions.verifyElementText(this.ageVal, age)
         await actions.verifyElementText(this.genderVal, gender)
@@ -87,13 +80,11 @@ class ProfileScreen {
     }
 
     async editProfile() {
-        await actions.setText(this.nameEditInputField, profileLoc.newNameVal)
-        await actions.setText(this.ageEditInputField, profileLoc.newAgeVal)
+        await actions.typeSlowly(this.nameEditInputField, profileLoc.newNameVal)
+        await actions.typeSlowly(this.ageEditInputField, profileLoc.newAgeVal)
         await actions.dismissKeyboard()
         await actions.tap(LoginScreen.male)
         await Common.tapSave()
-
-        
     }
 
     async verifyLogoutAlert() {
