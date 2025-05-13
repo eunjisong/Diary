@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, SectionList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, SectionList, TouchableOpacity, StyleSheet, RefreshControl } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
 import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -10,8 +10,8 @@ const storage = new MMKV();
 const moodIcons: { [key: string]: string } = {
   happy: 'smile',
   sad: 'frown',
-  angry: 'thumbs-down',
-  neutral: 'thumbs-up',
+  bad: 'thumbs-down',
+  good: 'thumbs-up',
 };
 
 const HomeScreen = ({ navigation }: any) => {
@@ -21,7 +21,12 @@ const HomeScreen = ({ navigation }: any) => {
   const [groupedDiaries, setGroupedDiaries] = useState(
     preloadedDiaries ? groupDiaries(preloadedDiaries) : null
   );
+  const [refreshing, setRefreshing] = useState(false);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadDiaries();
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -56,6 +61,7 @@ const HomeScreen = ({ navigation }: any) => {
     });
 
     setGroupedDiaries(groupDiaries(diaries));
+    setRefreshing(false)
   };
 
   return (
@@ -67,11 +73,12 @@ const HomeScreen = ({ navigation }: any) => {
             style={styles.writeButton}
             onPress={() => navigation.navigate('쓰기')}
           >
-            <Text style={styles.buttonText}>✏️ 일기 쓰러 가기</Text>
+            <Text style={styles.buttonText}>일기 쓰러 가기</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <SectionList
+          testID='diaryList'
           sections={groupedDiaries}
           keyExtractor={(item) => item.date}
           renderItem={({ item }) => (
@@ -87,6 +94,9 @@ const HomeScreen = ({ navigation }: any) => {
           )}
           renderSectionHeader={({ section: { title } }) => <Text style={styles.sectionHeader}>{title}</Text>}
           contentContainerStyle={styles.listContainer}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       )}
     </View>

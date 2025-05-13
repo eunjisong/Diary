@@ -1,16 +1,34 @@
-// 텍스트로 요소 선택
-function byText(text: string) {
-  const isIOS = driver.isIOS
-  return isIOS
-    ? $(`//*[@name="${text}"]`)
-    : $(`//*[@text="${text}"]`)
+function withPlatform(ios: string, android: string) {
+  return driver.isIOS ? $(ios) : $(android);
 }
 
-// testID로 요소 선택
+
+function byText(text: string) {
+  return withPlatform(`//*[@name="${text}"]`, `//*[@text="${text}"]`);
+}
+
+function byContainsText(text: string) {
+  return withPlatform(
+    `//*[contains(@name, "${text}")]`, 
+    `//*[contains(@text, "${text}")]`
+  );
+}
+
 function byId(testID: string) {
-    // 해보세요
+  return withPlatform(`~${testID}`, `//*[@resource-id="${testID}"]`);
+}
+
+function byImageAtIndex(index: number) {
+  return withPlatform(
+    `//XCUIElementTypeImage[${index + 1}]`,
+    `//android.widget.FrameLayout[android.widget.ImageView[${index}]]`
+  );
 }
 
 export const selectors = {
-    byText
+  byText,
+  byContainsText,
+  byId,
+  byImageAtIndex, 
+  withPlatform
 }

@@ -38,7 +38,7 @@ const MyScreen = () => {
   }, []);
 
   const handleLogout = () => {
-    Alert.alert('로그아웃', '모든 정보가 사라집니다. 정말 로그아웃 하시겠습니까?', [
+    Alert.alert('경고', '모든 정보가 사라집니다. 정말 로그아웃 하시겠습니까?', [
       { text: '취소', style: 'cancel' },
       {
         text: '확인',
@@ -84,7 +84,7 @@ const MyScreen = () => {
     <View style={styles.container}>
       {/* 프로필 사진 (중앙 정렬, 높이 고정) */}
       <View style={styles.profileContainer}>
-        <Image source={{ uri: profileImage || DEFAULT_PROFILE_IMAGE }} style={styles.profileImage} />
+        <Image testID='image' source={{ uri: profileImage || DEFAULT_PROFILE_IMAGE }} style={styles.profileImage} />
         {isEditing && (
           <TouchableOpacity style={styles.changePhotoButton} onPress={changeProfileImage}>
             <Text style={styles.changePhotoText}>사진 변경</Text>
@@ -96,50 +96,51 @@ const MyScreen = () => {
       <View style={styles.infoContainer}>
         <Text style={styles.label}>이름:</Text>
         {isEditing ? (
-          <TextInput style={styles.input} returnKeyType="done" value={name} onChangeText={(text) => { setName(text); setIsChanged(true); }} />
+          <TextInput testID="nameEditInputField" style={styles.input} returnKeyType="done" value={name} onChangeText={(text) => { setName(text); setIsChanged(true); }} />
         ) : (
-          <Text style={styles.text}>{name}</Text>
+          <Text testID="nameVal" style={styles.text}>{name}</Text>
         )}
 
         <Text style={styles.label}>나이:</Text>
         {isEditing ? (
-          <TextInput style={styles.input} value={age} keyboardType="numeric"      
-          returnKeyType="done"          
-          onChangeText={(text) => { setAge(text); setIsChanged(true); }} />
+          <TextInput style={styles.input} value={age} keyboardType="numeric"
+            returnKeyType="done"
+            testID="ageEditInputField"
+            onChangeText={(text) => { setAge(text); setIsChanged(true); }} />
         ) : (
-          <Text style={styles.text}>{age}</Text>
+          <Text testID="ageVal" style={styles.text}>{age}</Text>
         )}
 
-<Text style={styles.label}>성별:</Text>
-{isEditing ? (
-  <View style={styles.radioContainer}>
-    {['여자', '남자'].map((item) => {
-      const isSelected = genderValue === item;
-      return (
-        <TouchableOpacity
-          key={item}
-          style={[
-            styles.radioButton,
-            {
-              backgroundColor: isSelected ? '#008CBA' : '#fff',
-              borderColor: isSelected ? '#008CBA' : '#ccc'
-            }
-          ]}
-          onPress={() => {
-            setGenderValue(item);
-            setIsChanged(true);
-          }}
-        >
-          <Text style={[styles.radioText, { color: isSelected ? '#fff' : '#000' }]}>
-            {item}
-          </Text>
-        </TouchableOpacity>
-      );
-    })}
-  </View>
-) : (
-  <Text style={styles.text}>{gender}</Text>
-)}
+        <Text style={styles.label}>성별:</Text>
+        {isEditing ? (
+          <View style={styles.radioContainer}>
+            {['여자', '남자'].map((item) => {
+              const isSelected = genderValue === item;
+              return (
+                <TouchableOpacity
+                  key={item}
+                  style={[
+                    styles.radioButton,
+                    {
+                      backgroundColor: isSelected ? '#008CBA' : '#fff',
+                      borderColor: isSelected ? '#008CBA' : '#ccc'
+                    }
+                  ]}
+                  onPress={() => {
+                    setGenderValue(item);
+                    setIsChanged(true);
+                  }}
+                >
+                  <Text testID={isSelected ? 'selectedGender' : 'unselectedGender'} style={[styles.radioText, { color: isSelected ? '#fff' : '#000' }]}>
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : (
+          <Text testID="genderVal" style={styles.text}>{gender}</Text>
+        )}
 
       </View>
 
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
   saveButton: { flex: 1, padding: 12, borderRadius: 5, alignItems: 'center' },
   cancelButton: { flex: 1, backgroundColor: 'green', padding: 12, borderRadius: 5, alignItems: 'center' },
   buttonText: { color: 'white', fontSize: 16 },
-  
+
   radioContainer: {
     flexDirection: 'row',
     marginTop: 8,
