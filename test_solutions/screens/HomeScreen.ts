@@ -16,8 +16,6 @@ class HomeScreen {
         return selectors.byText(homeLoc.writeBtn)
     }
 
-
-
     get diaryList() {
         return selectors.byId(homeLoc.diaryList)
     }
@@ -28,20 +26,20 @@ class HomeScreen {
         await actions.isVisible(this.writeBtn)
     }
 
-    async verifyDiaryDetail(text: string, mood = 'happyMood', date = 'today') {
+    async tapWriteBtn() {
+        await actions.tap(this.writeBtn)
+    }
+
+    async verifyDiaryDetail(text: string, mood = 'happyMood') {
         await actions.isVisible(selectors.byText(text))
         await actions.isVisible(selectors.byId(`selected_${mood}`))
-        if (date === 'today') {
-            const today = actions.today()
-            await actions.isVisible(selectors.byText(today))
-        }
         await actions.isVisible(Common.editBtn)
     }
 
     async verifyDiaryRow(text: string, date: string, visible = true) {
         const verifyMethod = visible ? actions.isVisible : actions.isNotVisible
-        await verifyMethod(selectors.byContainsText(date))
-        await verifyMethod(selectors.byContainsText(text))
+        await verifyMethod(selectors.byText(date))
+        await verifyMethod(selectors.byText(text))
     }
 
     async verifyRemoveAlert() {

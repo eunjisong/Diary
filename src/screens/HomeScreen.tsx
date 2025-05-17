@@ -14,6 +14,13 @@ const moodIcons: { [key: string]: string } = {
   good: 'thumbs-up',
 };
 
+const moodIconsId: { [key: string]: string } = {
+  happy: 'happyMood',
+  sad: 'sadMood',
+  bad: 'badMood',
+  good: 'goodMood',
+};
+
 const HomeScreen = ({ navigation }: any) => {
   type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Main'>;
   const route = useRoute<HomeScreenRouteProp>();
@@ -82,11 +89,11 @@ const HomeScreen = ({ navigation }: any) => {
           sections={groupedDiaries}
           keyExtractor={(item) => item.date}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('일기 보기', { date: item.date, text: item.text, mood: item.mood })}>
+            <TouchableOpacity accessible={false} onPress={() => navigation.navigate('일기 보기', { date: item.date, text: item.text, mood: item.mood })}>
               <View style={styles.card}>
                 <View style={styles.rowContainer}>
                   <Text style={styles.dateText}>{item.date}</Text>
-                  {item.mood ? <Icon name={moodIcons[item.mood]} size={20} color="black" style={styles.moodIcon} /> : null}
+                  {item.mood ? <Icon testID={moodIconsId[item.mood]} name={moodIcons[item.mood]} size={20} color="black" style={styles.moodIcon} /> : null}
                 </View>
                 <Text style={styles.diaryText} numberOfLines={2}>{item.text}</Text>
               </View>

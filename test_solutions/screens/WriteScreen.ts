@@ -1,3 +1,4 @@
+import { assert } from "chai";
 import { actions } from "../helpers/actions";
 import { selectors } from "../helpers/selectors"
 import homeLoc from "../locators/home.loc";
@@ -33,10 +34,17 @@ class WriteScreen {
         return selectors.byContainsText(writeLoc.leftArrow)
     }
 
+    get calendar() {
+        return selectors.byId(writeLoc.calendar)
+    }
+
+    async tapCalendar() {
+        await actions.tap(this.calendar)
+    }
+
     async selectLastMonth() {
         const lastMonth = actions.lastMonth()
-        const yesterday = actions.yesterday()
-        await this.tapCalendar(yesterday)
+        await this.tapCalendar()
         await actions.tap(this.prevMonth)
         await actions.tap(selectors.byContainsText(lastMonth))
     }
@@ -47,20 +55,20 @@ class WriteScreen {
         await actions.tap(selectors.byContainsText(yesterday))
     }
 
-    async tapCalendar(date: string = actions.today()) {
-        await actions.tap(selectors.byText(date))
-    }
-
     async write(text: string, mood: string = 'happyMood', autosave = false) {
         await actions.tap(selectors.byId(mood))
-        await actions.type(this.writeInputfield, text)
+        await actions.typeSlowly(this.writeInputfield, text)
 
         if (autosave) {
             await actions.waitFor(this.saved, 70000)
-            await actions.tap(this.saved)
+            await this.dismissWriteTabKeyboard()
         } else {
             await Common.tapSave()
         }
+    }
+
+    async dismissWriteTabKeyboard() {
+        await actions.tap(this.saved)
     }
 
     async tapNewDiary() {
@@ -74,6 +82,19 @@ class WriteScreen {
     async tapOverwrite() {
         await actions.tap(this.overwrite)
     }
-}
+
+    async verifyWrittenDiary(text: string | string[], mood: string) {
+        await actions.isVisible(selectors.byId(`selected_${mood}`))
+        const curr = await actions.getText(this.writeInputfield)
+        if (typeof text === 'string') {
+            assert.equal(curr, text, `${curr} != ${text}`)
+        } else {
+            const currStrings = curr.split('\n').map( str => str.trim()).filter( str => str.length > 0)
+            assert.deepEqual(text, currStrings)
+        }
+        
+        
+    }
+ }
 
 export default new WriteScreen()

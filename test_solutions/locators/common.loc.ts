@@ -15,6 +15,5 @@ export default {
     goodMood: 'goodMood',
     badMood: 'badMood',
     helloWorld: 'Hello World',
-    helloWorldKo: '헬로 월드',
-    newHelloWorld: '헬로 헬로 헬로 월드'
+    helloWorldKo: '헬로 월드'
   }

@@ -80,7 +80,9 @@ class ProfileScreen {
     }
 
     async editProfile() {
+        await this.nameEditInputField.clearValue()
         await actions.typeSlowly(this.nameEditInputField, profileLoc.newNameVal)
+        await this.ageEditInputField.clearValue()
         await actions.typeSlowly(this.ageEditInputField, profileLoc.newAgeVal)
         await actions.dismissKeyboard()
         await actions.tap(LoginScreen.male)

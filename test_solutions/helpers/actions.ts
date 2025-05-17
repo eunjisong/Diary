@@ -27,10 +27,8 @@ async function type(element: ChainablePromiseElement, text: string | number) {
 
 async function typeSlowly(element: ChainablePromiseElement, text: string | number) {
   const val = String(text)
-
   for (const char of val) {
     await element.addValue(char);
-    await driver.pause(150);
   }
 }
 

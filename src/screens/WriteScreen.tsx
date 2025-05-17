@@ -107,7 +107,7 @@ const WriteScreen = ({ navigation }: any) => {
           onPress: () => {
             try {
               const existingData = JSON.parse(existingDiary);
-              const updatedText = existingData.text + '\n\n' + diaryText;
+              const updatedText = existingData.text + '\n' + diaryText;
               storage.set(selectedDate, JSON.stringify({ text: updatedText, mood }));
               setDiaryText(updatedText);
               setIsSaved(true);
@@ -148,7 +148,7 @@ const WriteScreen = ({ navigation }: any) => {
         <View style={{ flex: 1 }}>
 
           <View style={styles.dateMoodContainer}>
-            <TouchableOpacity style={styles.dateButton} onPress={() => setShowCalendar(!showCalendar)}>
+            <TouchableOpacity testID='calendar' style={styles.dateButton} onPress={() => setShowCalendar(!showCalendar)}>
               <Text style={styles.dateText}>{selectedDate}</Text>
             </TouchableOpacity>
 
@@ -163,7 +163,7 @@ const WriteScreen = ({ navigation }: any) => {
                 <Icon testID={mood === 'bad' ? 'selected_badMood' : 'badMood'} name="thumbs-down" size={40} color={mood === 'bad' ? 'black' : 'gray'} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleMoodSelect('good')}>
-                <Icon testID={mood === 'good' ? 'selected_badMood' : 'goodMood'} name="thumbs-up" size={40} color={mood === 'good' ? 'black' : 'gray'} />
+                <Icon testID={mood === 'good' ? 'selected_goodMood' : 'goodMood'} name="thumbs-up" size={40} color={mood === 'good' ? 'black' : 'gray'} />
               </TouchableOpacity>
             </View>
           </View>
