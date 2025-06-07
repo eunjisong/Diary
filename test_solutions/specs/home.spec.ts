@@ -5,6 +5,50 @@ import WriteScreen from "../screens/WriteScreen"
 import Common from "../screens/Common"
 import commonLoc from "../locators/common.loc"
 
+
+
+describe(('제목: 홈탭에 대한 테스트'), ()=>{
+
+  //test 1 
+  it(('저장버튼 누르기'), async ()=>{
+    await button.click()
+    await actions.verifyText('저장')
+  })
+
+  //test 2
+  it(('수정버튼 누르기'), async ()=>{
+    await button2.click()
+    await actions.verifyText('수정')
+  })
+
+  //hook 
+  before(('셋업해야할것'), async ()=>{
+    await login()
+    await setup()
+  })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 describe('홈 탭', () => {
   let today = ''
 

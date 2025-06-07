@@ -82,7 +82,7 @@ class LoginScreen {
         // 이름, 나이, 성별 넣기 
         await actions.typeSlowly(this.nameInput, name)
         await actions.typeSlowly(this.ageInput, age)
-        await actions.dismissKeyboard('Done')
+        // await actions.dismissKeyboard('Done')
         await this.selectGender(gender)
 
         // 완료하기 
@@ -94,8 +94,8 @@ class LoginScreen {
         await actions.isVisible(HomeScreen.title)
     }
 
-    addPhotoToAndroid() {
-        const localImagePath = path.resolve(__dirname, '../example.png');
+addPhotoToAndroid() {
+        const localImagePath = path.resolve(__dirname, '../exampleDark.png');
         if (driver.isAndroid) {
             const deviceImagePath = '/sdcard/DCIM/Camera/exampleDark.png';
 

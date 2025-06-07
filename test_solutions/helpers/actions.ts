@@ -26,10 +26,10 @@ async function type(element: ChainablePromiseElement, text: string | number) {
 }
 
 async function typeSlowly(element: ChainablePromiseElement, text: string | number) {
-  const val = String(text)
-  for (const char of val) {
-    await element.addValue(char);
-  }
+  // const val = String(text)
+  // for (const char of val) {
+    await element.setValue(text);
+  // }
 }
 
 async function dismissKeyboard(text: string = 'Done') {
@@ -66,7 +66,7 @@ function lastMonth(): string {
 }
 
 async function swipe(direction: string, percent: number) {
-  await driver.execute('mobile: swipe', { direction, percent})
+  await driver.execute('mobile: swipe', { direction: direction, percent: percent}) 
 }
 
 export const actions = {
