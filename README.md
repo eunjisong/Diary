@@ -1,22 +1,22 @@
-## 스텝 1: 프로젝트 가져오기  
+## 1. 프로젝트 가져오기  
 
 ```sh
 git clone https://github.com/eunjisong/Diary.git
 ```
 
-## 스텝 2: 설치하기 
+## 2. 설치하기 
 
 ```sh
 npm install
 ```
 
-## 스텝 3: 메트로 시작하기
+## 3. 메트로 시작하기
 
 ```sh
 npm start
 ```
 
-## Step 2: 어플 설치하기 
+## 4. 어플 설치하기 
 
 ### 안드로이드
 
