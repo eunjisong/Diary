@@ -7,7 +7,7 @@ git clone https://github.com/eunjisong/Diary.git
 ## 2. 설치하기 
 
 ```sh
-npm install
+cd Diary && npm install
 ```
 
 ## 3. 메트로 시작하기
