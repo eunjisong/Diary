@@ -10,7 +10,6 @@
   },
   "include": [
     "tests/**/*.ts",
-    "test_solutions/**/*.ts",
-    // "wdio.conf.ts"
+    "test_solutions/**/*.ts"
   ]
 }
