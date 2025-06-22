@@ -64,7 +64,7 @@ const OnboardingScreen = ({ navigation }: any) => {
 
           {/* 입력 필드 */}
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>이름</Text>
+            <Text testID='name_title' style={styles.label}>이름</Text>
             <TextInput testID='name_input' style={styles.input} placeholder="이름 입력" value={name} onChangeText={setName} />
 
             <Text style={styles.label}>나이</Text>
