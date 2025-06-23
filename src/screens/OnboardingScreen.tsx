@@ -91,6 +91,7 @@ const OnboardingScreen = ({ navigation }: any) => {
 
           {/* 저장 버튼 */}
           <TouchableOpacity
+            testID="save"
             style={[styles.submitButton, !isFormComplete && styles.submitButtonDisabled]}
             onPress={handleSubmit}
             disabled={!isFormComplete}

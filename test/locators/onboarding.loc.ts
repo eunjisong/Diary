@@ -12,5 +12,5 @@ export default {
     gender: '성별',
     female: '여자',
     male: '남자',
-    save: '저장',
+    save: 'save', // testID
 }
