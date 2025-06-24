@@ -12,5 +12,7 @@ export default {
     gender: '성별',
     female: '여자',
     male: '남자',
-    save: 'save', // testID
+    save: 'save', // testID,
+    userName: '오토봇', 
+    userAge: 5
 }

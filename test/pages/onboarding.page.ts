@@ -51,6 +51,14 @@ class OnboardingPage {
         return selectors.getById(onboardingLoc.save)
     }
 
+    get userName() {
+        return selectors.getByText(onboardingLoc.userName)
+    }
+
+    get userAge() {
+        return selectors.getByText(onboardingLoc.userAge.toString())
+    }
+
     async selectGenderV2(gender = onboardingLoc.female) {
         await selectors.getByText(gender).click()
     } 
@@ -63,6 +71,7 @@ class OnboardingPage {
 
     async setAge(age: number) {
         await actions.type(this.ageInput, age)
+        await actions.dismissKeyboard('Done')
     }
 
     async verifyOnboardingPage() {

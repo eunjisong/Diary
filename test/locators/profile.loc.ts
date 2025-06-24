@@ -1,0 +1,20 @@
+export default {
+    nameTitle: '이름:',
+    nameValue: 'name_value',
+    ageTitle: '나이:',
+    ageValue: 'age_value',
+    genderTitle: '성별:',
+    genderValue: 'gender_value',
+    edit: '수정',
+    logout: '로그아웃',
+    profileTabId: 'profileTab',
+    nameEditInput: 'name_input',
+    ageEditInput: 'age_input',
+    cancel: '취소',
+    save: '저장',
+    newUserName: 'autobot', 
+    newUserAge: 10, 
+    newUserGender:  '남자',
+    alertContent: '모든 정보가 사라집니다. 정말 로그아웃 하시겠습니까?',
+    confirm: '확인'
+}

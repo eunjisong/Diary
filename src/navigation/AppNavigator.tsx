@@ -67,7 +67,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="프로필" component={MyScreen}
         options={{ 
           tabBarAccessibilityLabel: "프로필",
-          tabBarButtonTestID: 'profileTab' 
+          tabBarButtonTestID: 'profileTab'
         }}
       />
     </Tab.Navigator>
