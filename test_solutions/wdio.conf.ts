@@ -24,14 +24,14 @@ export const config: WebdriverIO.Config = {
       'appium:app': iosAppPath,
       'appium:noReset': true
     },
-    {
-      platformName: 'Android',
-      'appium:deviceName': 'pixel_3',
-      'appium:platformVersion': '14',
-      'appium:automationName': 'UiAutomator2',
-      'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-      'appium:noReset': true
-    }
+    // {
+    //   platformName: 'Android',
+    //   'appium:deviceName': 'pixel_3',
+    //   'appium:platformVersion': '14',
+    //   'appium:automationName': 'UiAutomator2',
+    //   'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
+    //   'appium:noReset': true
+    // }
   ].filter(cap => {
     if (!platformToRun) return true; // 아무것도 지정 안 했으면 둘 다
     return cap.platformName.toLowerCase() === platformToRun.toLowerCase();

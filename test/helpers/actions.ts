@@ -53,6 +53,11 @@ async function dismissKeyboard(text = 'Return') {
     }
 }
 
+async function getText(element: ChainablePromiseElement) {
+    await waitFor(element)
+    return await element.getText()
+}
+
 export const actions = {
     type,
     verifyElementText,
@@ -61,5 +66,6 @@ export const actions = {
     isSelected,
     isEnabled,
     tap,
-    dismissKeyboard
+    dismissKeyboard,
+    getText
 }

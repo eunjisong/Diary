@@ -112,17 +112,19 @@ const TokenScreen = () => {
           extraData={coins} // ✅ 변경된 경우에만 렌더링
           renderItem={({ item }) => {
             const isPriceUp = item.price_change_percentage_24h >= 0;
+
+            // token_price__Bitcoin
             return (
-              <View style={styles.coinCard}>
+              <View testID={`token_card__${item.name}`} style={styles.coinCard}>
                 <Image source={{ uri: item.image }} style={styles.coinImage} />
                 <View style={styles.coinInfo}>
                   <Text style={styles.coinName}>
                     {item.name} ({item.symbol.toUpperCase()})
                   </Text>
-                  <Text style={styles.coinPrice}>💰 ${item.current_price.toLocaleString()}</Text>
+                  <Text testID={`token_price__${item.name}`} style={styles.coinPrice}>${item.current_price.toLocaleString()}</Text>
                   <View style={styles.priceChangeContainer}>
                     <Icon name={isPriceUp ? 'arrow-up-right' : 'arrow-down-right'} size={16} color={isPriceUp ? 'green' : 'red'} />
-                    <Text style={[styles.priceChange, { color: isPriceUp ? 'green' : 'red' }]}>
+                    <Text testID={`token_percent__${item.name}`} style={[styles.priceChange, { color: isPriceUp ? 'green' : 'red' }]}>
                       {item.price_change_percentage_24h.toFixed(2)}%
                     </Text>
                   </View>
