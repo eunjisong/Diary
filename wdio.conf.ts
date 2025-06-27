@@ -27,7 +27,7 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '18.2',
         'appium:automationName': 'xcuitest',
         'appium:app': path.resolve('./ios/DerivedData/Debug-iphonesimulator/Diary.app'),
-        // 'appium:noReset': true
+    // 'appium:noReset': true
     }
 ],
     hostname: '127.0.0.1',

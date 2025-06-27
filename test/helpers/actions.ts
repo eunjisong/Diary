@@ -58,6 +58,10 @@ async function getText(element: ChainablePromiseElement) {
     return await element.getText()
 }
 
+async function swipe(direction: string, percent: number) {
+    await driver.execute('mobile: swipe', { direction: direction, percent: percent})
+}
+
 export const actions = {
     type,
     verifyElementText,
@@ -67,5 +71,6 @@ export const actions = {
     isEnabled,
     tap,
     dismissKeyboard,
-    getText
+    getText,
+    swipe
 }

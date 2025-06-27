@@ -12,6 +12,7 @@ class TokenPage {
     // async 메소드
     async getApiTokens() {
         const response = await fetch(tokenLoc.endPoint)
+
         return response.json()
     }
 
@@ -21,7 +22,7 @@ class TokenPage {
 
     async compareApiCardAndUiCard(apiCard: Coin) {
         // 이름 + 심볼
-        await actions.isVisible(selectors.getByText(`${apiCard.name} (${apiCard.symbol.toUpperCase()})`))
+        await actions.waitFor(selectors.getByText(`${apiCard.name} (${apiCard.symbol.toUpperCase()})`))
 
         // 토큰 카드 테스트
         console.error('테스트: ', tokenLoc.tokenCard + apiCard.name)
@@ -48,6 +49,18 @@ class TokenPage {
         const percentDiff = (diff / apiPrice) * 100 // 차이의 비율이 나옵니다  (10/2010) * 100 = 0.5
         return percentDiff <= 10
     } 
+
+    async compareApiTokenNameAndUiTokenName(token: Coin) {
+        // Bitcoin (BTC) 텍스트 체크 
+        const title = `${token.name} (${token.symbol.toUpperCase()})`
+        try {
+            await actions.isVisible(selectors.getByText(title))
+        } catch(e) {
+            // swipe 
+            await actions.swipe('up', 0.1)
+            await actions.isVisible(selectors.getByText(title))
+        }
+    }
 
 }
 
