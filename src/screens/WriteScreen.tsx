@@ -154,16 +154,16 @@ const WriteScreen = ({ navigation }: any) => {
 
             <View style={styles.moodContainer}>
               <TouchableOpacity onPress={() => handleMoodSelect('happy')}>
-                <Icon name="smile" size={40} color={mood === 'happy' ? 'black' : 'gray'} />
+                <Icon testID='mood_happy' name="smile" size={40} color={mood === 'happy' ? 'black' : 'gray'} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleMoodSelect('sad')}>
-                <Icon name="frown" size={40} color={mood === 'sad' ? 'black' : 'gray'} />
+                <Icon testID='mood_sad' name="frown" size={40} color={mood === 'sad' ? 'black' : 'gray'} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleMoodSelect('angry')}>
-                <Icon name="thumbs-down" size={40} color={mood === 'angry' ? 'black' : 'gray'} />
+                <Icon testID='mood_angry' name="thumbs-down" size={40} color={mood === 'angry' ? 'black' : 'gray'} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleMoodSelect('neutral')}>
-                <Icon name="thumbs-up" size={40} color={mood === 'neutral' ? 'black' : 'gray'} />
+                <Icon testID='mood_neutral' name="thumbs-up" size={40} color={mood === 'neutral' ? 'black' : 'gray'} />
               </TouchableOpacity>
             </View>
           </View>

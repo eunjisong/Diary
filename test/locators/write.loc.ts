@@ -8,5 +8,9 @@ export default {
     overwrite: '덮어쓰기',
     addMore: '추가',
     calendarButton: 'calendarButton', // testID
-    prevMonth: 'undefined.header.leftArrow'
+    prevMonth: 'undefined.header.leftArrow',
+    moodHappy: 'mood_happy', // testID
+    moodSad: 'mood_sad', // testID
+    moodAngry: 'mood_angry', // testID
+    moodNeutral: 'mood_neutral' // testID
 }

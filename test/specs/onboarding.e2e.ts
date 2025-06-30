@@ -1,4 +1,5 @@
 import onboardingLoc from "../locators/onboarding.loc"
+import homePage from "../pages/home.page"
 import onboardingPage from "../pages/onboarding.page"
 
 describe('온보딩 테스트', () => {
@@ -37,6 +38,6 @@ describe('온보딩 테스트', () => {
         // 이름 입력 > 저장 > 온보딩 스크린 아님 + 홈탭 도착
         await onboardingPage.setName(onboardingLoc.userName)
         await onboardingPage.tapSave()
-        await onboardingPage.verifyLoggedIn()
+        await homePage.verifyEmptyScreen()
     })
 })

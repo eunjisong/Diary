@@ -111,12 +111,6 @@ class OnboardingPage {
         await actions.isVisible(noDiaryText, false)
     }
 
-    async verifyLoggedIn() {
-        const noDiaryText = selectors.getByText('일기가 하나도 없습니다.')
-        await actions.waitFor(noDiaryText)
-        await actions.isVisible(this.appTitleV2, false)
-    }
-
     async tapGender(gender: ChainablePromiseElement) {
         await actions.tap(gender)
     }

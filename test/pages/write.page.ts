@@ -71,14 +71,26 @@ class WritePage {
         await actions.tap(this.prevMonth)
     }
 
-    async write(content: string, isAutoSave = false, date: string | undefined = undefined) {
+    async tapMood(mood: string) {
+        await actions.tap(selectors._(mood))
+    }
+
+    async write(content: string, isAutoSave = false, date: string | undefined = undefined, mood: string | undefined = undefined) {
+        // 날짜 넣기 
         if(date) {
             await this.tapCalendar()
             await this.injectDate(date)
         }
-        
+
+        // 무드 넣기 
+        if(mood) {
+            await this.tapMood(mood)
+        }
+
+        // 일기 내용 넣기 
         await actions.type(this.writeInputField, content)
 
+        // 저장 버튼 누를지 말지 최종 버튼 누르기/안누르기 
         if (isAutoSave) {
             await actions.delay(5000)
         } else {
