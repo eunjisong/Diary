@@ -37,12 +37,29 @@ class WritePage {
         return selectors.getByText(writeLoc.addMore)
     }
 
+    get calendarButton() {
+        return selectors.getById(writeLoc.calendarButton)
+    }
+
     // 커스텀 메소드 정의
     async goToWrite() {
         await actions.tap(this.writeTab)
     }
 
-    async write(content: string, isAutoSave = false) {
+    async tapCalendar() {
+        await actions.tap(this.calendarButton)
+    }
+
+    async injectDate(date: string) {
+        
+    }
+
+    async write(content: string, isAutoSave = false, date: string | undefined = undefined) {
+        if(date) {
+            await this.tapCalendar()
+            await this.injectDate(date)
+        }
+        
         await actions.type(this.writeInputField, content)
 
         if (isAutoSave) {

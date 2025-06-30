@@ -66,6 +66,19 @@ async function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+function journalDate(date: number, month: number, year: number) {
+    const targetDate = new Date()
+
+    if (date) {
+        targetDate.setDate( targetDate.getDate() - date )
+    } else if (month) {
+        targetDate.setMonth( targetDate.getMonth() - month )
+    } else if (year) {
+        targetDate.setFullYear( targetDate.getFullYear() - year )
+    } 
+    return targetDate.toISOString().split('T')[0]
+} 
+
 export const actions = {
     type,
     verifyElementText,
@@ -77,5 +90,6 @@ export const actions = {
     dismissKeyboard,
     getText,
     swipe,
-    delay
+    delay,
+    journalDate
 }

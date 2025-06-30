@@ -149,7 +149,7 @@ const WriteScreen = ({ navigation }: any) => {
 
           <View style={styles.dateMoodContainer}>
             <TouchableOpacity style={styles.dateButton} onPress={() => setShowCalendar(!showCalendar)}>
-              <Text style={styles.dateText}>{selectedDate}</Text>
+              <Text testID='calendarButton' style={styles.dateText}>{selectedDate}</Text>
             </TouchableOpacity>
 
             <View style={styles.moodContainer}>

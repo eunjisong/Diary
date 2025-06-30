@@ -6,5 +6,6 @@ export default {
     save: '저장',
     newDiary: '새 일기', 
     overwrite: '덮어쓰기',
-    addMore: '추가'
+    addMore: '추가',
+    calendarButton: 'calendarButton' // testID
 }
