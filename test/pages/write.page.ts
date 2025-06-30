@@ -72,7 +72,7 @@ class WritePage {
     }
 
     async tapMood(mood: string) {
-        await actions.tap(selectors._(mood))
+        await actions.tap(selectors.getById(mood))
     }
 
     async write(content: string, isAutoSave = false, date: string | undefined = undefined, mood: string | undefined = undefined) {

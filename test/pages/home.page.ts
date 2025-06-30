@@ -22,6 +22,21 @@ class HomePage {
         await actions.isVisible(onboardingPage.appTitleV2, false)
         await actions.isVisible(this.writeBtn)
     }
+
+    async tapWriteBtn() {
+        await actions.tap(this.writeBtn)
+    }
+
+    async verifyDiaryCard(content: string, mood: string, date: string, isEditable = false) {
+        await actions.waitFor(selectors.getByText(content))
+        await actions.isVisible(selectors.getById(mood)) //`mood_happy`
+        await actions.isVisible(selectors.getByText(date))
+        await actions.isVisible(this.edit, isEditable)
+    }
+
+    async tapDiary(date: string) {
+        await actions.tap(selectors.getByText(date))
+    }
 }
 
 export default new HomePage()

@@ -79,7 +79,7 @@ const HomeScreen = ({ navigation }: any) => {
               <View style={styles.card}>
                 <View style={styles.rowContainer}>
                   <Text style={styles.dateText}>{item.date}</Text>
-                  {item.mood ? <Icon name={moodIcons[item.mood]} size={20} color="black" style={styles.moodIcon} /> : null}
+                  {item.mood ? <Icon testID={`mood_${item.mood}`} name={moodIcons[item.mood]} size={20} color="black" style={styles.moodIcon} /> : null}
                 </View>
                 <Text style={styles.diaryText} numberOfLines={2}>{item.text}</Text>
               </View>

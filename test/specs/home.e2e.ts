@@ -23,11 +23,12 @@ describe('홈스크린 테스트', () => {
         await writePage.write('홈탭에서 일기 쓰기', false, undefined, writeLoc.moodHappy)
  
         // 홈탭 > 일기 리스트 > 일기 카드 테스트하기 (재활용 가능하게 쓸 것)
-        await homePage.verifyDiaryCard()
+        const todayDate = actions.journalDate(0, 0, 0)
+        await homePage.verifyDiaryCard('홈탭에서 일기 쓰기', writeLoc.moodHappy, todayDate)
 
         // 일기카드 클릭 + 일기 디테일 테스트 (재활용 가능하게 쓸 것)
-
-        
+        await homePage.tapDiary(todayDate)
+        await homePage.verifyDiaryCard('홈탭에서 일기 쓰기', writeLoc.moodHappy, todayDate, tr)        
     })
 
     it('일기 수정하기', async() => {

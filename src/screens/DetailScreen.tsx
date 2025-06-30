@@ -100,6 +100,7 @@ const DetailScreen = () => {
               disabled={!isEditing}
             >
               <Icon
+                testID={`mood_${moodKey}`}
                 name={moodIcons[moodKey]}
                 size={40}
                 color={selectedMood === moodKey ? 'black' : 'gray'}
