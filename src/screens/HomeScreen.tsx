@@ -75,7 +75,7 @@ const HomeScreen = ({ navigation }: any) => {
           sections={groupedDiaries}
           keyExtractor={(item) => item.date}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('일기 보기', { date: item.date, text: item.text, mood: item.mood })}>
+            <TouchableOpacity accessible={false} onPress={() => navigation.navigate('일기 보기', { date: item.date, text: item.text, mood: item.mood })}>
               <View style={styles.card}>
                 <View style={styles.rowContainer}>
                   <Text style={styles.dateText}>{item.date}</Text>
