@@ -144,7 +144,7 @@ const WriteScreen = ({ navigation }: any) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={{ flex: 1 }}>
 
           <View style={styles.dateMoodContainer}>
@@ -180,6 +180,7 @@ const WriteScreen = ({ navigation }: any) => {
 
           <View style={styles.textAreaContainer}>
             <TextInput
+              testID='writeInputField'
               style={styles.textArea}
               multiline
               value={diaryText}

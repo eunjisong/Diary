@@ -62,6 +62,10 @@ async function swipe(direction: string, percent: number) {
     await driver.execute('mobile: swipe', { direction: direction, percent: percent})
 }
 
+async function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export const actions = {
     type,
     verifyElementText,
@@ -72,5 +76,6 @@ export const actions = {
     tap,
     dismissKeyboard,
     getText,
-    swipe
+    swipe,
+    delay
 }

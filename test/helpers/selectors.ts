@@ -11,9 +11,12 @@ function getById(id: string) {
     return withPlatform(`~${id}`, `//*[@resource-id="${id}"]`)
 }
 
-
+function getBySomeText(text: string) {
+    return withPlatform(`//*[contains(@name, "${text}")]`, `//*[contains(@text, "${text}")]`)
+}
 
 export const selectors = {
     getByText,
-    getById
+    getById,
+    getBySomeText
 }
