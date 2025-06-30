@@ -27,6 +27,11 @@ async function isVisible(element: ChainablePromiseElement, targetBool = true) {
     assert.equal(visible, targetBool)
 }
 
+async function isVisibleTrueOrFalse(element: ChainablePromiseElement) {
+    return await element.isDisplayed()
+
+}
+
 async function isSelected(element: ChainablePromiseElement, targetBool = true) {
     const selected = await element.isSelected()
 
@@ -91,5 +96,6 @@ export const actions = {
     getText,
     swipe,
     delay,
-    journalDate
+    journalDate,
+    isVisibleTrueOrFalse
 }

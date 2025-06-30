@@ -7,5 +7,6 @@ export default {
     newDiary: '새 일기', 
     overwrite: '덮어쓰기',
     addMore: '추가',
-    calendarButton: 'calendarButton' // testID
+    calendarButton: 'calendarButton', // testID
+    prevMonth: 'undefined.header.leftArrow'
 }

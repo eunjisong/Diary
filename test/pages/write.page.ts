@@ -41,6 +41,10 @@ class WritePage {
         return selectors.getById(writeLoc.calendarButton)
     }
 
+    get prevMonth() {
+        return selectors.getById(writeLoc.prevMonth)
+    }
+
     // 커스텀 메소드 정의
     async goToWrite() {
         await actions.tap(this.writeTab)
@@ -51,7 +55,20 @@ class WritePage {
     }
 
     async injectDate(date: string) {
-        
+        const ele = selectors.getById(date)
+        try {
+            await actions.tap(ele)
+        } catch (e) {
+            while (!(await actions.isVisibleTrueOrFalse(ele))) {
+                await this.tapPrevMonth()
+                await actions.delay(500)
+            }
+            await actions.tap(ele)
+        }
+    }
+
+    async tapPrevMonth() {
+        await actions.tap(this.prevMonth)
     }
 
     async write(content: string, isAutoSave = false, date: string | undefined = undefined) {

@@ -175,6 +175,21 @@ const WriteScreen = ({ navigation }: any) => {
                 setSelectedDate(day.dateString);
                 setShowCalendar(false);
               }}
+              dayComponent={({ date, state }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSelectedDate(date.dateString);
+                      setShowCalendar(false);
+                    }}
+                    testID={`${date.dateString}`}
+                  >
+                    <Text style={{ color: state === 'disabled' ? 'gray' : 'black' }}>
+                      {date.day}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              }}
             />
           )}
 
