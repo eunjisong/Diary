@@ -113,12 +113,22 @@ const DetailScreen = () => {
       {showCalendar && (
         <Calendar
           current={selectedDate}
-          onDayPress={(day: { dateString: string }) => {
-            if (isEditing) {
-              setSelectedDate(day.dateString);
-              setIsChanged(true);
-            }
-            setShowCalendar(false);
+          dayComponent={({ date, state }) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  if (isEditing) {
+                    setSelectedDate(date.dateString);
+                    setIsChanged(true);
+                  }
+                  setShowCalendar(false);
+                }}
+              >
+                <Text style={{ color: state === 'disabled' ? 'gray' : 'black' }}>
+                  {date.day}
+                </Text>
+              </TouchableOpacity>
+            );
           }}
         />
       )}
