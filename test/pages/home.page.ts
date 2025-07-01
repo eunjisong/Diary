@@ -10,7 +10,7 @@ class HomePage {
     }
 
     get writeBtn() {
-        return selectors.getBySomeText(homeLoc.writeBtn)
+        return selectors.getById(homeLoc.writeBtnId)
     }
 
     get edit() {

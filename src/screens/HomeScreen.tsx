@@ -67,7 +67,7 @@ const HomeScreen = ({ navigation }: any) => {
             style={styles.writeButton}
             onPress={() => navigation.navigate('쓰기')}
           >
-            <Text style={styles.buttonText}>✏️ 일기 쓰러 가기</Text>
+            <Text testID='homeTab_writeBtn' style={styles.buttonText}>✏️ 일기 쓰러 가기</Text>
           </TouchableOpacity>
         </View>
       ) : (
