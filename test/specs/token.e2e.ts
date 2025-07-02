@@ -13,7 +13,6 @@ describe('토큰탭 API 테스트', () => {
         await tokenPage.goToTokenTab()
     })
 
-
     it('넘버원 토큰 카드 테스트', async () => {
         // 넘버원 토큰 API에서 가져오기 
         const apiToken = apiTokens[0]

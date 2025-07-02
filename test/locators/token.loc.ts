@@ -3,5 +3,6 @@ export default {
     tokenTab: 'tokenTab',
     tokenCard: 'token_card__',
     tokenPrice: 'token_price__',
-    tokenPercent: 'token_percent__'
+    tokenPercent: 'token_percent__',
+    tokenList: 'tokenList'
 }

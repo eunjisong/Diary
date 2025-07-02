@@ -63,8 +63,16 @@ async function getText(element: ChainablePromiseElement) {
     return await element.getText()
 }
 
-async function swipe(direction: string, percent: number) {
-    await driver.execute('mobile: swipe', { direction: direction, percent: percent})
+async function swipe(direction: string, percent: number, element: ChainablePromiseElement) {
+    if (driver.isIOS) {
+        await driver.execute('mobile: swipe', { direction: direction, percent: percent})    
+    } else {
+        const elementId = await element.elementId
+        await driver.execute('mobile: swipeGesture', { 
+            elementId: elementId,
+            direction: direction, 
+            percent: percent})    
+    } 
 }
 
 async function delay(ms: number) {

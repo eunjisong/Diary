@@ -31,26 +31,31 @@ describe('홈스크린 테스트', () => {
         await homePage.verifyDiaryCard('홈탭에서 일기 쓰기', writeLoc.moodHappy, todayDate, true)        
     })
 
-    // it('일기 수정하기', async() => {
-    //     // 수정 버튼 누르기 
-
-    //     // 날짜 + 무드 + 컨텐츠 수정
+    it('일기 수정하기', async() => {
+        // 수정 버튼 누르기 
+        await homePage.tapEdit()
+        // 날짜 + 무드 + 컨텐츠 수정
+        const yesterdayDate = actions.journalDate(1, 0, 0)
+        await homePage.editDiary('수정된 일기', writeLoc.moodSad, yesterdayDate)
         
-    //     // 홈탭 > 일키 리스트 > 일기 카드 테스트하기 (재활용 가능하게 쓸 것)
+        // 홈탭 > 일키 리스트 > 일기 카드 테스트하기 (재활용 가능하게 쓸 것)
+        await homePage.verifyDiaryCard('수정된 일기', writeLoc.moodSad, yesterdayDate, true)
+
+        // 일기카드 클릭 + 일기 디테일 테스트 (재활용 가능하게 쓸 것)
+        await writePage.goToHome()
+        await homePage.verifyDiaryCard('수정된 일기', writeLoc.moodSad, yesterdayDate)
+
+    })
+
+    it('일기 삭제하기', async() => {
+        // 수정 버튼 누르기 
+        await homePage.tapDiary(actions.journalDate(1, 0, 0))
+        await homePage.tapEdit()
+
+        // 삭제 버튼 누르기 
+        await homePage.remove()
         
-    //     // 일기카드 클릭 + 일기 디테일 테스트 (재활용 가능하게 쓸 것)
-
-    // })
-
-    // it('일기 삭제하기', async() => {
-    //     // 수정 버튼 누르기 
-
-    //     // 삭제 버튼 누르기 
-
-    //     // 일기가 하나도 없습니다 + 일기 쓰러 가기 버튼 (재활용 가능하게 쓸 것)
-
-    // })
-
-
-
+        // 일기가 하나도 없습니다 + 일기 쓰러 가기 버튼 (재활용 가능하게 쓸 것)
+        await homePage.verifyEmptyScreen()
+    })
 })

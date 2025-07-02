@@ -9,6 +9,10 @@ class TokenPage {
         return selectors.getById(tokenLoc.tokenTab)
     }
 
+    get tokenList() {
+        return selectors.getById(tokenLoc.tokenList)
+    }
+
     // async 메소드
     async getApiTokens() {
         const response = await fetch(tokenLoc.endPoint)
@@ -35,7 +39,7 @@ class TokenPage {
         assert(this.withinTolerance(uiPrice, apiCard.current_price), 
         `uiPrice와 apiPrice가 오차값 안에 있지 않습니다. ${uiPrice} ~ ${apiCard.current_price} ` )
 
-        // 변화율 테스트 
+        // 변화율 테스트  
         const uiPercentString = (await actions.getText(selectors.getById(`${tokenLoc.tokenPercent}${apiCard.name}`))).replace('%', '') 
         const uiPercent = parseFloat(uiPercentString)
         // 1.85% >>> 1.85
@@ -57,7 +61,7 @@ class TokenPage {
             await actions.isVisible(selectors.getByText(title))
         } catch(e) {
             // swipe 
-            await actions.swipe('up', 0.1)
+            await actions.swipe('up', 0.1, this.tokenList)
             await actions.isVisible(selectors.getByText(title))
         }
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { MMKV } from 'react-native-mmkv';
 import { Calendar } from 'react-native-calendars';
@@ -65,7 +65,7 @@ const DetailScreen = () => {
     Alert.alert('삭제 확인', '정말 이 일기를 삭제하시겠습니까?', [
       { text: '취소', style: 'cancel' },
       {
-        text: '삭제',
+        text: '확인',
         style: 'destructive',
         onPress: () => {
           storage.delete(selectedDate);
@@ -76,97 +76,117 @@ const DetailScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* 날짜 및 기분 선택 */}
-      <View style={styles.dateMoodContainer}>
-        <TouchableOpacity
-          style={[styles.dateButton]}
-          onPress={() => isEditing && setShowCalendar(!showCalendar)}
-          disabled={!isEditing}
-        >
-          <Text style={styles.dateText}>{selectedDate}</Text>
-        </TouchableOpacity>
-
-        <View style={styles.moodContainer}>
-          {Object.keys(moodIcons).map((moodKey) => (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          {/* 날짜 및 기분 선택 */}
+          <View style={styles.dateMoodContainer}>
             <TouchableOpacity
-              key={moodKey}
-              onPress={() => {
-                if (isEditing) {
-                  setSelectedMood(moodKey);
-                  setIsChanged(true);
-                }
-              }}
+              style={[styles.dateButton]}
+              onPress={() => isEditing && setShowCalendar(!showCalendar)}
               disabled={!isEditing}
             >
-              <Icon
-                testID={`mood_${moodKey}`}
-                name={moodIcons[moodKey]}
-                size={40}
-                color={selectedMood === moodKey ? 'black' : 'gray'}
+              <Text testID='calendarButton' style={styles.dateText}>{selectedDate}</Text>
+            </TouchableOpacity>
+
+            <View style={styles.moodContainer}>
+              {Object.keys(moodIcons).map((moodKey) => (
+                <TouchableOpacity
+                  key={moodKey}
+                  onPress={() => {
+                    if (isEditing) {
+                      setSelectedMood(moodKey);
+                      setIsChanged(true);
+                    }
+                  }}
+                  disabled={!isEditing}
+                >
+                  <Icon
+                    testID={`mood_${moodKey}`}
+                    name={moodIcons[moodKey]}
+                    size={40}
+                    color={selectedMood === moodKey ? 'black' : 'gray'}
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          {/* 날짜 선택 캘린더 */}
+          {showCalendar && (
+            <Calendar
+              current={selectedDate}
+              dayComponent={({ date, state }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (isEditing) {
+                        setSelectedDate(date.dateString);
+                        setIsChanged(true);
+                      }
+                      setShowCalendar(false);
+                    }}
+                    testID={`${date.dateString}`}
+                  >
+                    <Text style={{ color: state === 'disabled' ? 'gray' : 'black' }}>
+                      {date.day}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          )}
+
+          {/* 일기 작성 영역 */}
+          <View style={styles.textAreaContainer}>
+            {isEditing ? (
+              <TextInput
+                testID='edit_inputField'
+                style={styles.textArea}
+                multiline
+                value={editedText}
+                onChangeText={(text) => {
+                  setEditedText(text);
+                  setIsChanged(true);
+                }}
               />
-            </TouchableOpacity>
-          ))}
+            ) : (
+              <Text style={styles.diaryText}>{editedText}</Text>
+            )}
+          </View>
+
+          {/* 삭제 & 저장 버튼 */}
+          <View style={styles.buttonContainer}>
+            {isEditing ? (
+              <>
+                <TouchableOpacity style={[styles.deleteButton, styles.buttonSpacing]} onPress={handleDelete}>
+                  <Text style={styles.buttonText}>삭제</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.saveButton,
+                    styles.buttonSpacing,
+                    { backgroundColor: isChanged ? '#008CBA' : '#B0BEC5' }, // 변경이 없으면 비활성화
+                  ]}
+                  onPress={handleSaveEdit}
+                  disabled={!isChanged}
+                >
+                  <Text style={styles.buttonText}>저장</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <TouchableOpacity style={styles.editButton} onPress={() => setIsEditing(true)}>
+                <Text style={styles.buttonText}>수정</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
-
-      {/* 날짜 선택 캘린더 */}
-      {showCalendar && (
-        <Calendar
-          current={selectedDate}
-          onDayPress={(day: { dateString: string }) => {
-            if (isEditing) {
-              setSelectedDate(day.dateString);
-              setIsChanged(true);
-            }
-            setShowCalendar(false);
-          }}
-        />
-      )}
-
-      {/* 일기 작성 영역 */}
-      <View style={styles.textAreaContainer}>
-        {isEditing ? (
-          <TextInput
-            style={styles.textArea}
-            multiline
-            value={editedText}
-            onChangeText={(text) => {
-              setEditedText(text);
-              setIsChanged(true);
-            }}
-          />
-        ) : (
-          <Text style={styles.diaryText}>{editedText}</Text>
-        )}
-      </View>
-
-      {/* 삭제 & 저장 버튼 */}
-      <View style={styles.buttonContainer}>
-        {isEditing ? (
-          <>
-            <TouchableOpacity style={[styles.deleteButton, styles.buttonSpacing]} onPress={handleDelete}>
-              <Text style={styles.buttonText}>삭제</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.saveButton,
-                styles.buttonSpacing,
-                { backgroundColor: isChanged ? '#008CBA' : '#B0BEC5' }, // 변경이 없으면 비활성화
-              ]}
-              onPress={handleSaveEdit}
-              disabled={!isChanged}
-            >
-              <Text style={styles.buttonText}>저장</Text>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <TouchableOpacity style={styles.editButton} onPress={() => setIsEditing(true)}>
-            <Text style={styles.buttonText}>수정</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

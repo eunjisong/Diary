@@ -2,6 +2,7 @@ import { actions } from "../helpers/actions"
 import { selectors } from "../helpers/selectors"
 import homeLoc from "../locators/home.loc"
 import onboardingPage from "./onboarding.page"
+import writePage from "./write.page"
 
 class HomePage {
 
@@ -15,6 +16,22 @@ class HomePage {
 
     get edit() {
         return selectors.getByText(homeLoc.edit)
+    }
+
+    get editInputField() {
+        return selectors.getById(homeLoc.editInputField)
+    }
+
+    get save() {
+        return selectors.getByText(homeLoc.save)
+    }
+
+    get removeBtn() {
+        return selectors.getByText(homeLoc.removeBtn)
+    }
+
+    get confirmBtn() {
+        return selectors.getByText(homeLoc.confirmBtn)
     }
 
     async verifyEmptyScreen() {
@@ -37,6 +54,32 @@ class HomePage {
     async tapDiary(date: string) {
         await actions.tap(selectors.getByText(date))
     }
+
+    async tapEdit() {
+        await actions.tap(this.edit)
+    }
+
+    async editDiary(content: string, mood: string, date: string | undefined = undefined) {
+        // 컨텐츠 추가
+        await actions.type(this.editInputField, content)
+        // 기분 설정
+        await actions.tap(selectors.getById(mood))
+
+        // 날짜 넣기 
+        if(date) {
+            await writePage.tapCalendar()
+            await writePage.injectDate(date)
+        }
+
+        // 저장 버튼 누르기 
+        await actions.tap(this.save)
+    } 
+
+    async remove() {
+        await actions.tap(this.removeBtn)
+        await actions.tap(this.confirmBtn)
+    }
+    
 }
 
 export default new HomePage()

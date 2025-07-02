@@ -55,7 +55,7 @@ class WritePage {
     }
 
     async injectDate(date: string) {
-        const ele = selectors.getById(date)
+        const ele = selectors.getById(date) // '2025-07-31' testID
         try {
             await actions.tap(ele)
         } catch (e) {

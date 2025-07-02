@@ -107,6 +107,7 @@ const TokenScreen = () => {
         <ActivityIndicator size="large" color="#008CBA" />
       ) : (
         <FlatList
+          testID='tokenList'
           data={coins}
           keyExtractor={(item) => item.id}
           extraData={coins} // ✅ 변경된 경우에만 렌더링
