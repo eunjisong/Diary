@@ -19,6 +19,7 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '16.0',
         'appium:automationName': 'UiAutomator2',
         'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
+        "wdio:maxInstances": 1
         // 'appium:noReset': true
     },
     {
@@ -27,6 +28,7 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '18.2',
         'appium:automationName': 'xcuitest',
         'appium:app': path.resolve('./ios/DerivedData/Debug-iphonesimulator/Diary.app'),
+        "wdio:maxInstances": 1
     // 'appium:noReset': true
     }
 ],

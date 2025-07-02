@@ -139,6 +139,12 @@ class WritePage {
     async verifyAddOn(content: string) {
         await actions.isVisible(selectors.getBySomeText(content))
     }
+
+    async tapSaved() {
+        await actions.waitFor(this.saved)
+        await actions.tap(this.saved)
+
+    }
 }
 
 export default new WritePage()

@@ -44,6 +44,7 @@ describe('일기쓰기 테스트', () => {
         await writePage.verifyContent('덮어쓰기')
 
         // 홈탭: 덮어쓴 일기 컨텐츠 확인하기 
+        await writePage.tapSaved()
         await writePage.goToHome()
         await writePage.verifyManualSaved('덮어쓰기')
     })
@@ -66,6 +67,7 @@ describe('일기쓰기 테스트', () => {
         await writePage.verifyContent('추가하기')
 
         // 홈탭: 덮어쓴 일기 컨텐츠 확인하기 
+        await writePage.tapSaved()
         await writePage.goToHome()
         await writePage.goToJournal('덮어쓰기')
         await writePage.verifyAddOn('추가하기')
