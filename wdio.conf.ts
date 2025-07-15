@@ -13,7 +13,7 @@ const allCaps = [
         // capabilities for local Appium web tests on an Android Emulator
         platformName: 'Android',
         'appium:deviceName': 'pixel_7_pro',
-        'appium:platformVersion': '16.0',
+        'appium:platformVersion': '14.0',
         'appium:automationName': 'UiAutomator2',
         'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
         "wdio:maxInstances": 1
@@ -43,7 +43,7 @@ export const config: WebdriverIO.Config = {
         // 'path/to/excluded/files'
         './test/specs/login.e2e.ts'
     ],
-    maxInstances: 10,
+    maxInstances: 1,
     capabilities: caps,
     services: ['appium'],
     logLevel: 'error',
