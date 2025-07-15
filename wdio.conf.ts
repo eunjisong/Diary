@@ -3,19 +3,12 @@ import { getSection, getTestCase, getTestRun, sendResult } from './test/testrail
 
 let runId: number | undefined
 let sectionCache: Record<string, number> = {} // { '섹션1: 1 ,.... }
-
-export const config: WebdriverIO.Config = {
-    runner: 'local',
-    tsConfigPath: './test/tsconfig.json',
-    specs: [
-        './test/specs/**/*.ts'
-    ],
-    exclude: [
-        // 'path/to/excluded/files'
-        './test/specs/login.e2e.ts'
-    ],
-    maxInstances: 10,
-    capabilities: [
+const isBitrise = process.env.CI === 'true'
+const iosPath = isBitrise 
+? '/Users/vagrant/git/build/Build/Products/Debug-iphonesimulator/Diary.app' 
+: path.resolve('./ios/DerivedData/Debug-iphonesimulator/Diary.app')
+const platformToRun = process.env.PLATFORM
+const allCaps = [
         {
         // capabilities for local Appium web tests on an Android Emulator
         platformName: 'Android',
@@ -31,11 +24,27 @@ export const config: WebdriverIO.Config = {
         'appium:deviceName': 'iPhone 16 Pro',
         'appium:platformVersion': '18.2',
         'appium:automationName': 'xcuitest',
-        'appium:app': path.resolve('./ios/DerivedData/Debug-iphonesimulator/Diary.app'),
+        'appium:app': iosPath,
         "wdio:maxInstances": 1
     // 'appium:noReset': true
     }
-],
+]
+
+const caps = platformToRun ? allCaps.filter( cap => cap.platformName.toLowerCase() === platformToRun) : allCaps
+
+
+export const config: WebdriverIO.Config = {
+    runner: 'local',
+    tsConfigPath: './test/tsconfig.json',
+    specs: [
+        './test/specs/**/*.ts'
+    ],
+    exclude: [
+        // 'path/to/excluded/files'
+        './test/specs/login.e2e.ts'
+    ],
+    maxInstances: 10,
+    capabilities: caps,
     hostname: '127.0.0.1',
     port: 4723,
     // services: ['appium'],
