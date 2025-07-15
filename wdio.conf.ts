@@ -22,7 +22,7 @@ const allCaps = [
     {
         platformName: 'iOS',
         'appium:deviceName': 'iPhone 16 Pro',
-        'appium:platformVersion': '18.2',
+        'appium:platformVersion': '18.4',
         'appium:automationName': 'xcuitest',
         'appium:app': iosPath,
         "wdio:maxInstances": 1
