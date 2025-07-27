@@ -3,7 +3,7 @@ import { assert } from 'chai'
 import { selectors } from "./selectors";
 
 async function type(element: ChainablePromiseElement, text: string | number) {
-    await element.waitForExist()
+    await waitFor(element)
     await element.setValue('')
     await element.setValue(text)
 }
