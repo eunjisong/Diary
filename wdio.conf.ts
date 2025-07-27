@@ -15,7 +15,9 @@ const allCaps = [
         'appium:deviceName': 'pixel_7',
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),    
+        'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
+        "wdio:maxInstances": 1
+        // 'appium:noReset': true
     },
     {
         platformName: 'iOS',
@@ -23,6 +25,8 @@ const allCaps = [
         'appium:platformVersion': '18.4',
         'appium:automationName': 'xcuitest',
         'appium:app': iosPath,
+        "wdio:maxInstances": 1
+    // 'appium:noReset': true
     }
 ]
 
@@ -39,12 +43,13 @@ export const config: WebdriverIO.Config = {
         // 'path/to/excluded/files'
         './test/specs/login.e2e.ts'
     ],
-    maxInstances: 10,
+    maxInstances: 1,
+    maxInstancesPerCapability: 1,
     capabilities: caps,
     services: ['appium'],
     logLevel: 'error',
     bail: 0,
-    waitforTimeout: 30000,
+    waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
     framework: 'mocha',
