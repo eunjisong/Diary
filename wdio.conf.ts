@@ -15,8 +15,7 @@ const allCaps = [
         'appium:deviceName': 'pixel_7',
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-        maxInstances: 1,
+        'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk')
         
 
     },
@@ -25,8 +24,7 @@ const allCaps = [
         'appium:deviceName': 'iPhone 16 Pro',
         'appium:platformVersion': '18.4',
         'appium:automationName': 'xcuitest',
-        'appium:app': iosPath,
-          maxInstances: 1
+        'appium:app': iosPath
     }
 ]
 
@@ -43,7 +41,6 @@ export const config: WebdriverIO.Config = {
         // 'path/to/excluded/files'
         './test/specs/login.e2e.ts'
     ],
-    maxInstances: 1,
     capabilities: caps,
     services: ['appium'],
     logLevel: 'error',
