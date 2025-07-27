@@ -16,8 +16,7 @@ const allCaps = [
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
         'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-        "wdio:maxInstances": 1,
-        "appium:fullReset": true
+        "wdio:maxInstances": 1
 
     },
     {
@@ -26,8 +25,7 @@ const allCaps = [
         'appium:platformVersion': '18.4',
         'appium:automationName': 'xcuitest',
         'appium:app': iosPath,
-        "wdio:maxInstances": 1,
-        "appium:fullReset": true
+        "wdio:maxInstances": 1
 
     }
 ]
@@ -84,6 +82,12 @@ export const config: WebdriverIO.Config = {
         } else {
             console.error('테스트런이 아예 만들어진적이 없어서 결과값을 추가할 수 없습니다!')
         }
+    },
+
+    after: async () => {
+    if (browser) {
+        await browser.deleteSession()
+    }
     }
 
 }
