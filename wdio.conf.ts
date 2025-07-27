@@ -16,8 +16,9 @@ const allCaps = [
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
         'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-        "wdio:maxInstances": 1
-        // 'appium:noReset': true
+        "wdio:maxInstances": 1,
+        "appium:fullReset": true
+
     },
     {
         platformName: 'iOS',
@@ -25,8 +26,9 @@ const allCaps = [
         'appium:platformVersion': '18.4',
         'appium:automationName': 'xcuitest',
         'appium:app': iosPath,
-        "wdio:maxInstances": 1
-    // 'appium:noReset': true
+        "wdio:maxInstances": 1,
+        "appium:fullReset": true
+
     }
 ]
 
