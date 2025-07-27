@@ -16,7 +16,7 @@ async function verifyElementText(element: ChainablePromiseElement, targetText: s
     assert.equal(eleText, targetText, `"${eleText}"와 "${targetText}"는 같지 않습니다!`)
 }
 
-async function waitFor(element: ChainablePromiseElement, timeout = 5000) {
+async function waitFor(element: ChainablePromiseElement, timeout = 25000) {
     await element.waitForDisplayed({ timeout })
 }
 
