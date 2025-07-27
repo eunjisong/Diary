@@ -48,7 +48,7 @@ export const config: WebdriverIO.Config = {
     capabilities: caps,
     hostname: 'localhost',
     port: 4723,
-    path: '/wd/hub',
+    path: '/',
     logLevel: 'error',
     bail: 0,
     waitforTimeout: 10000,
