@@ -5,7 +5,7 @@ let runId: number | undefined
 let sectionCache: Record<string, number> = {} // { '섹션1: 1 ,.... }
 const isBitrise = process.env.CI === 'true'
 const iosPath = isBitrise 
-? '/Users/vagrant/git/build/Build/Products/Debug-iphonesimulator/Diary.app' 
+? '/Users/vagrant/git/build/Build/Products/Release-iphonesimulator/Diary.app' 
 : path.resolve('./ios/DerivedData/Debug-iphonesimulator/Diary.app')
 const platformToRun = process.env.PLATFORM
 const allCaps = [
