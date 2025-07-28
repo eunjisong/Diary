@@ -16,7 +16,6 @@ const allCaps = [
         'appium:platformVersion': '15.0',
         'appium:automationName': 'UiAutomator2',
         'appium:app': path.resolve('./android/app/build/outputs/apk/debug/diary.apk'),
-        "wdio:maxInstances": 1
         // 'appium:noReset': true
     },
     {
@@ -25,7 +24,6 @@ const allCaps = [
         'appium:platformVersion': '18.4',
         'appium:automationName': 'xcuitest',
         'appium:app': iosPath,
-        "wdio:maxInstances": 1
     // 'appium:noReset': true
     }
 ]
@@ -43,8 +41,7 @@ export const config: WebdriverIO.Config = {
         // 'path/to/excluded/files'
         './test/specs/login.e2e.ts'
     ],
-    maxInstances: 1,
-    maxInstancesPerCapability: 1,
+    maxInstances: 10,
     capabilities: caps,
     services: ['appium'],
     logLevel: 'error',
